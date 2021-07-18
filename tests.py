@@ -63,17 +63,17 @@ class TestLogicGates(unittest.TestCase):
         test_nor.input_a.val = Level.HI
         self.assertEqual(test_nor.output.val, Level.LO, "!(1 + 0) = 0")
 
-    # def test_xor(self):
-    #     test_xor = Xor("test_xor_gate")
-    #     test_xor.input_a.val = Level.HI
-    #     test_xor.input_b.val = Level.HI
-    #     self.assertEqual(test_xor.output.val, Level.LO, "(1 + 1) * (!1 + !1) = 0")
-    #     test_xor.input_a.val = Level.LO
-    #     self.assertEqual(test_xor.output.val, Level.HI, "(0 + 1) * (!0 + !1) = 1")
-    #     test_xor.input_b.val = Level.LO
-    #     self.assertEqual(test_xor.output.val, Level.LO, "(0 + 0) * (!0 + !0) = 0")
-    #     test_xor.input_a.val = Level.HI
-    #     self.assertEqual(test_xor.output.val, Level.HI, "(1 + 0) * (!1 + !0) = 1")
+    def test_xor(self):
+        test_xor = Xor("test_xor_gate")
+        test_xor.input_a.val = Level.HI
+        test_xor.input_b.val = Level.HI
+        self.assertEqual(test_xor.output.val, Level.LO, "(1 + 1) * (!1 + !1) = 0")
+        test_xor.input_a.val = Level.LO
+        self.assertEqual(test_xor.output.val, Level.HI, "(0 + 1) * (!0 + !1) = 1")
+        test_xor.input_b.val = Level.LO
+        self.assertEqual(test_xor.output.val, Level.LO, "(0 + 0) * (!0 + !0) = 0")
+        test_xor.input_a.val = Level.HI
+        self.assertEqual(test_xor.output.val, Level.HI, "(1 + 0) * (!1 + !0) = 1")
 
 
 if __name__ == "__main__":

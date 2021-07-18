@@ -1,6 +1,21 @@
 from base import Level, InputPin, OutputPin, LogicComponent
 
 
+class Split(LogicComponent):
+    """
+    Sends input signal to two different outputs
+    """
+
+    def __init__(self, name):
+        self.input = InputPin(self)
+        self.output_a = OutputPin(self)
+        self.output_b = OutputPin(self)
+        super().__init__(name)
+
+    def evaluate(self):
+        self.output_a.val = self.output_b.val = self.input.val
+
+
 class Not(LogicComponent):
     """
     Inverts input signal - output = !input
@@ -106,4 +121,14 @@ class Xor(LogicComponent):
         self.or_gate = Or(f"{name}#or")
         self.nand_gate = Nand(f"{name}#nand")
         self.and_gate = And(f"{name}#and")
-        # TODO have to support branching wires outside of OutputPins
+        self.splitter_a = Split(f"{name}#splitter_a")
+        self.splitter_b = Split(f"{name}#splitter_b")
+        self.input_a = self.splitter_a.input
+        self.input_b = self.splitter_b.input
+        self.splitter_a.output_a.connections.append(self.or_gate.input_a)
+        self.splitter_a.output_a.connections.append(self.nand_gate.input_a)
+        self.splitter_b.output_b.connections.append(self.or_gate.input_b)
+        self.splitter_b.output_b.connections.append(self.nand_gate.input_b)
+        self.or_gate.output.connections.append(self.and_gate.input_b)
+        self.nand_gate.output.connections.append(self.and_gate.input_a)
+        self.output = self.and_gate.output
