@@ -44,10 +44,16 @@ class Pin(object):
     InputPin) and for debugging. The Pin's `val` can be `HI` or `LO`.
     """
 
+    _val = Level.LO
+
     def __init__(self, component: LogicComponent):
         self.component: LogicComponent = component
 
-    _val = Level.LO
+    def __str__(self):
+        return f"{type(self).__name__}, val: {self._val}"
+
+    def __repr__(self):
+        return self.__str__()
 
 
 class InputPin(Pin):

@@ -7,10 +7,10 @@ class Split(LogicComponent):
     """
 
     def __init__(self, name):
+        super().__init__(name)
         self.input = InputPin(self)
         self.output_a = OutputPin(self)
         self.output_b = OutputPin(self)
-        super().__init__(name)
 
     def evaluate(self):
         self.output_a.val = self.output_b.val = self.input.val
@@ -22,9 +22,9 @@ class Not(LogicComponent):
     """
 
     def __init__(self, name):
+        super().__init__(name)
         self.input = InputPin(self)
         self.output = OutputPin(self)
-        super().__init__(name)
 
     def evaluate(self):
         self.output.val = Level.LO if self.input.val == Level.HI else Level.HI
@@ -32,6 +32,8 @@ class Not(LogicComponent):
 
 class And(LogicComponent):
     """
+    Outputs 1 if inputs a and b equal 1, otherwise outputs 0.
+
     | AND  | 0    | 1    |
     | ---- | ---- | ---- |
     | 0    | 0    | 0    |
@@ -39,10 +41,10 @@ class And(LogicComponent):
     """
 
     def __init__(self, name):
+        super().__init__(name)
         self.input_a = InputPin(self)
         self.input_b = InputPin(self)
         self.output = OutputPin(self)
-        super().__init__(name)
 
     def evaluate(self):
         self.output.val = (
@@ -55,6 +57,9 @@ class And(LogicComponent):
 class Or(LogicComponent):
 
     """
+    Outputs 1 if input a equals 1 or input b equals 1, otherwise outputs
+    0.
+
     | OR   | 0    | 1    |
     | ---- | ---- | ---- |
     | 0    | 0    | 1    |
@@ -62,10 +67,10 @@ class Or(LogicComponent):
     """
 
     def __init__(self, name):
+        super().__init__(name)
         self.input_a = InputPin(self)
         self.input_b = InputPin(self)
         self.output = OutputPin(self)
-        super().__init__(name)
 
     def evaluate(self):
         self.output.val = (
@@ -77,6 +82,8 @@ class Or(LogicComponent):
 
 class Nand(LogicComponent):
     """
+    Negation of the And gate.
+
     | NAND | 0    | 1    |
     | ---- | ---- | ---- |
     | 0    | 1    | 1    |
@@ -84,6 +91,7 @@ class Nand(LogicComponent):
     """
 
     def __init__(self, name):
+        super().__init__(name)
         self.and_gate = And(f"{name}#and")
         self.inverter = Not(f"{name}#not")
         self.and_gate.output.connections.append(self.inverter.input)
@@ -94,6 +102,8 @@ class Nand(LogicComponent):
 
 class Nor(LogicComponent):
     """
+    Negation of the Or gate.
+
     | NOR  | 0    | 1    |
     | ---- | ---- | ---- |
     | 0    | 1    | 0    |
@@ -101,6 +111,7 @@ class Nor(LogicComponent):
     """
 
     def __init__(self, name):
+        super().__init__(name)
         self.or_gate = Or(f"{name}#or")
         self.inverter = Not(f"{name}#not")
         self.or_gate.output.connections.append(self.inverter.input)
@@ -111,6 +122,9 @@ class Nor(LogicComponent):
 
 class Xor(LogicComponent):
     """
+    Exclusive Or - outputs 1 if input a does not equal input b,
+    otherwise outputs 0.
+
     | XOR  | 0    | 1    |
     | ---- | ---- | ---- |
     | 0    | 0    | 1    |
@@ -118,6 +132,7 @@ class Xor(LogicComponent):
     """
 
     def __init__(self, name):
+        super().__init__(name)
         self.or_gate = Or(f"{name}#or")
         self.nand_gate = Nand(f"{name}#nand")
         self.and_gate = And(f"{name}#and")
