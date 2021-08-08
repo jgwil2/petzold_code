@@ -2,7 +2,7 @@ import unittest
 
 from base import Level
 from gates import And, Nand, Nor, Not, Or, Xor
-from adders import FullAdder, HalfAdder
+from adders import FullAdder, HalfAdder, EightBitAdder
 
 
 class TestLogicGates(unittest.TestCase):
@@ -118,6 +118,29 @@ class TestAdders(unittest.TestCase):
         self.assertEqual(
             full_adder.output_carry.val, Level.LO, "adder(0, 0, 0) = (0, 0)"
         )
+
+    def test_eight_bit_adder(self):
+        eight_bit_adder = EightBitAdder("test_eight_bit_adder")
+        eight_bit_adder.input_a_0.val = Level.HI
+        eight_bit_adder.input_b_0.val = Level.HI
+        self.assertEqual(eight_bit_adder.output_s_0.val, Level.LO, "1 + 1 = 2")
+        self.assertEqual(eight_bit_adder.output_s_1.val, Level.HI, "1 + 1 = 2")
+        self.assertEqual(eight_bit_adder.output_s_2.val, Level.LO, "1 + 1 = 2")
+        eight_bit_adder.input_a_1.val = Level.HI
+        eight_bit_adder.input_a_2.val = Level.HI
+        eight_bit_adder.input_a_3.val = Level.HI
+        eight_bit_adder.input_a_4.val = Level.HI
+        eight_bit_adder.input_a_5.val = Level.HI
+        eight_bit_adder.input_b_1.val = Level.HI
+        eight_bit_adder.input_b_5.val = Level.HI
+        self.assertEqual(eight_bit_adder.output_s_0.val, Level.LO, "63 + 35 = 98")
+        self.assertEqual(eight_bit_adder.output_s_1.val, Level.HI, "63 + 35 = 98")
+        self.assertEqual(eight_bit_adder.output_s_2.val, Level.LO, "63 + 35 = 98")
+        self.assertEqual(eight_bit_adder.output_s_3.val, Level.LO, "63 + 35 = 98")
+        self.assertEqual(eight_bit_adder.output_s_4.val, Level.LO, "63 + 35 = 98")
+        self.assertEqual(eight_bit_adder.output_s_5.val, Level.HI, "63 + 35 = 98")
+        self.assertEqual(eight_bit_adder.output_s_6.val, Level.HI, "63 + 35 = 98")
+        self.assertEqual(eight_bit_adder.output_s_7.val, Level.LO, "63 + 35 = 98")
 
 
 if __name__ == "__main__":
