@@ -156,6 +156,43 @@ class TestLatches(unittest.TestCase):
         test_latch.data.val = Level.LO
         self.assertEqual(test_latch.q.val, Level.LO, "Initial output = 0")
         self.assertEqual(test_latch.q_bar.val, Level.HI, "Initial !output = 1")
+        # store 1 in the latch
+        test_latch.clock.val = Level.HI
+        test_latch.data.val = Level.HI
+        self.assertEqual(test_latch.q.val, Level.HI, "Latch stores val 1")
+        self.assertEqual(test_latch.q_bar.val, Level.LO, "Latch stores val 1")
+        # shift clock
+        test_latch.clock.val = Level.LO
+        self.assertEqual(test_latch.q.val, Level.HI, "Latch stores val 1")
+        self.assertEqual(test_latch.q_bar.val, Level.LO, "Latch stores val 1")
+        test_latch.data.val = Level.LO
+        self.assertEqual(
+            test_latch.q.val, Level.HI, "When clock = 0, data does not affect output"
+        )
+        self.assertEqual(
+            test_latch.q_bar.val,
+            Level.LO,
+            "When clock = 0, data does not affect output",
+        )
+        # store 0 in the latch
+        test_latch.clock.val = Level.HI
+        self.assertEqual(
+            test_latch.q.val, Level.LO, "When clock = 1, data is overwritten"
+        )
+        self.assertEqual(
+            test_latch.q_bar.val, Level.HI, "When clock = 1, data is overwritten"
+        )
+        # shift clock
+        test_latch.clock.val = Level.LO
+        test_latch.data.val = Level.HI
+        self.assertEqual(
+            test_latch.q.val, Level.LO, "When clock = 0, data does not affect output"
+        )
+        self.assertEqual(
+            test_latch.q_bar.val,
+            Level.HI,
+            "When clock = 0, data does not affect output",
+        )
 
 
 if __name__ == "__main__":
