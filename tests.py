@@ -3,6 +3,7 @@ import unittest
 from base import Level
 from gates import And, Nand, Nor, Not, Or, Xor
 from adders import FullAdder, HalfAdder, EightBitAdder
+from latches import OneBitLatch
 
 
 class TestLogicGates(unittest.TestCase):
@@ -66,7 +67,9 @@ class TestLogicGates(unittest.TestCase):
 
     def test_xor(self):
         test_xor_gate = Xor("test_xor_gate")
+        self.assertEqual(test_xor_gate.output.val, Level.LO, "(0 + 0) * (!0 + !0) = 0")
         test_xor_gate.input_a.val = Level.HI
+        self.assertEqual(test_xor_gate.output.val, Level.HI, "(0 + 1) * (!0 + !1) = 1")
         test_xor_gate.input_b.val = Level.HI
         self.assertEqual(test_xor_gate.output.val, Level.LO, "(1 + 1) * (!1 + !1) = 0")
         test_xor_gate.input_a.val = Level.LO
@@ -141,6 +144,18 @@ class TestAdders(unittest.TestCase):
         self.assertEqual(eight_bit_adder.output_s_5.val, Level.HI, "63 + 35 = 98")
         self.assertEqual(eight_bit_adder.output_s_6.val, Level.HI, "63 + 35 = 98")
         self.assertEqual(eight_bit_adder.output_s_7.val, Level.LO, "63 + 35 = 98")
+
+
+class TestLatches(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def test_one_bit_latch(self):
+        test_latch = OneBitLatch("test_latch")
+        test_latch.clock.val = Level.LO
+        test_latch.data.val = Level.LO
+        self.assertEqual(test_latch.q.val, Level.LO, "Initial output = 0")
+        self.assertEqual(test_latch.q_bar.val, Level.HI, "Initial !output = 1")
 
 
 if __name__ == "__main__":

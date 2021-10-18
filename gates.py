@@ -146,4 +146,5 @@ class Xor(LogicComponent):
         self.splitter_b.output_b.connections.append(self.nand_gate.input_b)
         self.or_gate.output.connections.append(self.and_gate.input_b)
         self.nand_gate.output.connections.append(self.and_gate.input_a)
+        self.nand_gate.output.val = Level.HI
         self.output = self.and_gate.output

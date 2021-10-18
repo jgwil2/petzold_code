@@ -68,8 +68,12 @@ class InputPin(Pin):
 
     @val.setter
     def val(self, val: Level):
-        self._val = val
-        self.component.evaluate()
+        # NOTE condition required to prevent loops in feedback circuits
+        # this means that circuits cannot self-update from their initial
+        # state - correct output levels must be set in init method
+        if self._val != val:
+            self._val = val
+            self.component.evaluate()
 
 
 class OutputPin(Pin):
