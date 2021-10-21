@@ -1,6 +1,6 @@
 # Charles Petzold's _Code_ in Python
 
-This will be a Python implementation of the computer described in chapters 11-19 of _Code: The Hidden Language of Computer Hardware and Software_.
+This will be a Python implementation of the computer described in chapters 11-17 of _Code: The Hidden Language of Computer Hardware and Software_.
 
 ## Gates
 
