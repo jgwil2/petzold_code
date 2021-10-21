@@ -1,5 +1,5 @@
 from base import LogicComponent
-from gates import And, Or, Split, Xor
+from gates import And, Or, Relay, Xor
 
 
 class HalfAdder(LogicComponent):
@@ -21,14 +21,14 @@ class HalfAdder(LogicComponent):
         super().__init__(name)
         self.and_gate = And(f"{name}#and")
         self.xor_gate = Xor(f"{name}#xor")
-        self.splitter_a = Split(f"{name}#splitter_a")
-        self.splitter_b = Split(f"{name}#splitter_b")
-        self.input_a = self.splitter_a.input
-        self.input_b = self.splitter_b.input
-        self.splitter_a.output_a.connections.append(self.and_gate.input_a)
-        self.splitter_a.output_b.connections.append(self.xor_gate.input_a)
-        self.splitter_b.output_a.connections.append(self.and_gate.input_b)
-        self.splitter_b.output_b.connections.append(self.xor_gate.input_b)
+        self.relay_a = Relay(f"{name}#relay_a")
+        self.relay_b = Relay(f"{name}#relay_b")
+        self.input_a = self.relay_a.input
+        self.input_b = self.relay_b.input
+        self.relay_a.output.connections.append(self.and_gate.input_a)
+        self.relay_a.output.connections.append(self.xor_gate.input_a)
+        self.relay_b.output.connections.append(self.and_gate.input_b)
+        self.relay_b.output.connections.append(self.xor_gate.input_b)
         self.output_carry = self.and_gate.output
         self.output_sum = self.xor_gate.output
 

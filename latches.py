@@ -1,5 +1,5 @@
 from base import Level, LogicComponent
-from gates import And, Nor, Not, Split
+from gates import And, Nor, Not, Relay
 
 
 class FlipFlop(LogicComponent):
@@ -27,20 +27,20 @@ class OneBitLatch(LogicComponent):
 
     def __init__(self, name):
         super().__init__(name)
-        self.splitter_clock = Split(f"{name}#splitter_clock")
-        self.splitter_data = Split(f"{name}#splitter_data")
+        self.relay_clock = Relay(f"{name}#relay_clock")
+        self.relay_data = Relay(f"{name}#relay_data")
         self.and_a = And(f"{name}#and_a")
         self.and_b = And(f"{name}#and_b")
         self.inverter = Not(f"{name}#inverter")
         self.nor_a = Nor(f"{name}#nor_a")
         self.nor_b = Nor(f"{name}#nor_b")
-        self.clock = self.splitter_clock.input
-        self.data = self.splitter_data.input
-        self.splitter_clock.output_a.connections.append(self.and_a.input_b)
-        self.splitter_clock.output_b.connections.append(self.and_b.input_a)
-        self.splitter_data.output_a.connections.append(self.inverter.input)
+        self.clock = self.relay_clock.input
+        self.data = self.relay_data.input
+        self.relay_clock.output.connections.append(self.and_a.input_b)
+        self.relay_clock.output.connections.append(self.and_b.input_a)
+        self.relay_data.output.connections.append(self.inverter.input)
         self.inverter.output.connections.append(self.and_a.input_a)
-        self.splitter_data.output_b.connections.append(self.and_b.input_b)
+        self.relay_data.output.connections.append(self.and_b.input_b)
         self.and_a.output.connections.append(self.nor_a.input_a)
         self.and_b.output.connections.append(self.nor_b.input_b)
         self.nor_a.output.connections.append(self.nor_b.input_a)
@@ -81,12 +81,12 @@ class EightBitLatch(LogicComponent):
         self.q_5 = self.latch_5.q
         self.q_6 = self.latch_6.q
         self.q_7 = self.latch_7.q
-        self.clock = Split("{name}#clock")
-        self.clock.output_a.connections.append(self.latch_0.clock)
-        self.clock.output_a.connections.append(self.latch_1.clock)
-        self.clock.output_a.connections.append(self.latch_2.clock)
-        self.clock.output_a.connections.append(self.latch_3.clock)
-        self.clock.output_a.connections.append(self.latch_4.clock)
-        self.clock.output_a.connections.append(self.latch_5.clock)
-        self.clock.output_a.connections.append(self.latch_6.clock)
-        self.clock.output_a.connections.append(self.latch_7.clock)
+        self.clock = Relay("{name}#clock")
+        self.clock.output.connections.append(self.latch_0.clock)
+        self.clock.output.connections.append(self.latch_1.clock)
+        self.clock.output.connections.append(self.latch_2.clock)
+        self.clock.output.connections.append(self.latch_3.clock)
+        self.clock.output.connections.append(self.latch_4.clock)
+        self.clock.output.connections.append(self.latch_5.clock)
+        self.clock.output.connections.append(self.latch_6.clock)
+        self.clock.output.connections.append(self.latch_7.clock)
