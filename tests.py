@@ -3,7 +3,7 @@ import unittest
 from base import Level
 from gates import And, Nand, Nor, Not, Or, Xor
 from adders import FullAdder, HalfAdder, EightBitAdder
-from latches import OneBitLatch
+from latches import EightBitLatch, OneBitLatch
 
 
 class TestLogicGates(unittest.TestCase):
@@ -193,6 +193,26 @@ class TestLatches(unittest.TestCase):
             Level.HI,
             "When clock = 0, data does not affect output",
         )
+
+    def test_eight_bit_latch(self):
+        test_latch = EightBitLatch("test_latch")
+        for i in range(8):
+            self.assertEqual(
+                getattr(test_latch, f"q_{i}").val, Level.LO, "Initializes to 0"
+            )
+        test_latch.clock.val = Level.HI
+        test_latch.d_0.val = Level.HI
+        test_latch.d_1.val = Level.HI
+        test_latch.d_4.val = Level.HI
+        test_latch.d_7.val = Level.HI
+        test_latch.clock.val = Level.LO
+        # clear inputs
+        for i in range(8):
+            getattr(test_latch, f"q_{i}").val = Level.LO
+        self.assertEqual(test_latch.d_0.val, Level.HI)
+        self.assertEqual(test_latch.d_0.val, Level.HI)
+        self.assertEqual(test_latch.d_4.val, Level.HI)
+        self.assertEqual(test_latch.d_7.val, Level.HI)
 
 
 if __name__ == "__main__":

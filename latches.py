@@ -81,12 +81,13 @@ class EightBitLatch(LogicComponent):
         self.q_5 = self.latch_5.q
         self.q_6 = self.latch_6.q
         self.q_7 = self.latch_7.q
-        self.clock = Relay("{name}#clock")
-        self.clock.output.connections.append(self.latch_0.clock)
-        self.clock.output.connections.append(self.latch_1.clock)
-        self.clock.output.connections.append(self.latch_2.clock)
-        self.clock.output.connections.append(self.latch_3.clock)
-        self.clock.output.connections.append(self.latch_4.clock)
-        self.clock.output.connections.append(self.latch_5.clock)
-        self.clock.output.connections.append(self.latch_6.clock)
-        self.clock.output.connections.append(self.latch_7.clock)
+        self.relay = Relay("{name}#clock")
+        self.clock = self.relay.input
+        self.relay.output.connections.append(self.latch_0.clock)
+        self.relay.output.connections.append(self.latch_1.clock)
+        self.relay.output.connections.append(self.latch_2.clock)
+        self.relay.output.connections.append(self.latch_3.clock)
+        self.relay.output.connections.append(self.latch_4.clock)
+        self.relay.output.connections.append(self.latch_5.clock)
+        self.relay.output.connections.append(self.latch_6.clock)
+        self.relay.output.connections.append(self.latch_7.clock)
