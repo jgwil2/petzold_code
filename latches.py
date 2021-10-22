@@ -1,4 +1,4 @@
-from base import Level, LogicComponent
+from base import LogicComponent
 from gates import And, Nor, Not, Relay
 
 
@@ -17,7 +17,7 @@ class FlipFlop(LogicComponent):
         self.nor_b.output.connections.append(self.nor_a.input_b)
         self.q = self.nor_a.output
         self.q_bar = self.nor_b.output
-        self.q_bar.val = Level.HI
+        self.q_bar.val = 1
 
 
 class OneBitLatch(LogicComponent):
@@ -47,7 +47,7 @@ class OneBitLatch(LogicComponent):
         self.nor_b.output.connections.append(self.nor_a.input_b)
         self.q = self.nor_a.output
         self.q_bar = self.nor_b.output
-        self.q_bar.val = Level.HI
+        self.q_bar.val = 1
 
 
 class EightBitLatch(LogicComponent):
@@ -97,12 +97,12 @@ class EightBitLatch(LogicComponent):
         # iterate least-significant to most-significant
         input_str = list(reversed(bin(input)))
         for i in range(8):
-            getattr(self, f"d_{i}").val = Level.HI if input_str[i] == "1" else Level.LO
+            getattr(self, f"d_{i}").val = 1 if input_str[i] == "1" else 0
 
     def get_output_as_number(self) -> int:
         bin_str = ""
         for i in range(8):
-            bin_str += "1" if getattr(self, f"q_{i}").val == Level.HI else "0"
+            bin_str += "1" if getattr(self, f"q_{i}").val == 1 else "0"
         # order most-signifcant to least-significant and
         # prepend binary prefix
         bin_str = "0b" + bin_str[::-1]

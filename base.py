@@ -2,15 +2,6 @@ from enum import Enum
 from typing import List
 
 
-class Level(Enum):
-    """
-    Enumeration type for the value of a signal.
-    """
-
-    LO = 0
-    HI = 1
-
-
 class LogicComponent(object):
     """
     A gate or other chip. Is instantiated with a `name` for debugging.
@@ -19,7 +10,7 @@ class LogicComponent(object):
     directly in Python rather than being composed of other components.
     """
 
-    def __init__(self, name):
+    def __init__(self, name: str):
         self.name = name
 
     def __str__(self):
@@ -41,10 +32,10 @@ class Pin(object):
     """
     Base class for a inputs and outputs. A Pin tracks its LogicComponent
     so that it can invoke the `evaluate` method (in the case of an
-    InputPin) and for debugging. The Pin's `val` can be `HI` or `LO`.
+    InputPin) and for debugging. The Pin's `val` can be 1 or 0.
     """
 
-    _val = Level.LO
+    _val = 0
 
     def __init__(self, component: LogicComponent):
         self.component: LogicComponent = component
@@ -67,7 +58,7 @@ class InputPin(Pin):
         return self._val
 
     @val.setter
-    def val(self, val: Level):
+    def val(self, val: int):
         # NOTE condition required to prevent loops in feedback circuits
         # this means that circuits cannot self-update from their initial
         # state - correct output levels must be set in init method
@@ -93,7 +84,7 @@ class OutputPin(Pin):
         return self._val
 
     @val.setter
-    def val(self, val: Level):
+    def val(self, val: int):
         self._val = val
         for connection in self.connections:
             connection.val = val

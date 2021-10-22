@@ -1,4 +1,4 @@
-from base import Level, InputPin, OutputPin, LogicComponent
+from base import InputPin, OutputPin, LogicComponent
 
 
 class Relay(LogicComponent):
@@ -26,7 +26,7 @@ class Not(LogicComponent):
         self.output = OutputPin(self)
 
     def evaluate(self):
-        self.output.val = Level.LO if self.input.val == Level.HI else Level.HI
+        self.output.val = 0 if self.input.val == 1 else 1
 
 
 class And(LogicComponent):
@@ -46,11 +46,7 @@ class And(LogicComponent):
         self.output = OutputPin(self)
 
     def evaluate(self):
-        self.output.val = (
-            Level.HI
-            if self.input_a.val == Level.HI and self.input_b.val == Level.HI
-            else Level.LO
-        )
+        self.output.val = 1 if self.input_a.val == 1 and self.input_b.val == 1 else 0
 
 
 class Or(LogicComponent):
@@ -72,11 +68,7 @@ class Or(LogicComponent):
         self.output = OutputPin(self)
 
     def evaluate(self):
-        self.output.val = (
-            Level.HI
-            if self.input_a.val == Level.HI or self.input_b.val == Level.HI
-            else Level.LO
-        )
+        self.output.val = 1 if self.input_a.val == 1 or self.input_b.val == 1 else 0
 
 
 class Nand(LogicComponent):
@@ -145,5 +137,5 @@ class Xor(LogicComponent):
         self.relay_b.output.connections.append(self.nand_gate.input_b)
         self.or_gate.output.connections.append(self.and_gate.input_b)
         self.nand_gate.output.connections.append(self.and_gate.input_a)
-        self.nand_gate.output.val = Level.HI
+        self.nand_gate.output.val = 1
         self.output = self.and_gate.output
