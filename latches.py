@@ -92,18 +92,18 @@ class EightBitLatch(LogicComponent):
         self.relay.output.connections.append(self.latch_6.clock)
         self.relay.output.connections.append(self.latch_7.clock)
 
+    # TODO reuse these methods for all 8-bit components
     def set_input_as_number(self, input: int):
         # convert decimal to binary str and
         # iterate least-significant to most-significant
-        input_str = list(reversed(bin(input)))
+        input_str = format(input, "08b")
         for i in range(8):
-            getattr(self, f"d_{i}").val = 1 if input_str[i] == "1" else 0
+            getattr(self, f"d_{7-i}").val = 1 if input_str[i] == "1" else 0
 
     def get_output_as_number(self) -> int:
         bin_str = ""
         for i in range(8):
-            bin_str += "1" if getattr(self, f"q_{i}").val == 1 else "0"
-        # order most-signifcant to least-significant and
+            bin_str += "1" if getattr(self, f"q_{7-i}").val == 1 else "0"
         # prepend binary prefix
-        bin_str = "0b" + bin_str[::-1]
+        bin_str = "0b" + bin_str
         return int(bin_str, 2)
