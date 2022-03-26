@@ -1,5 +1,6 @@
 from base import LogicComponent
 from gates import And, Or, Relay, Xor
+from mixins import EightBitInputOutputMixin
 
 
 class HalfAdder(LogicComponent):
@@ -65,7 +66,7 @@ class FullAdder(LogicComponent):
         self.output_carry = self.or_gate.output
 
 
-class EightBitAdder(LogicComponent):
+class EightBitAdder(LogicComponent, EightBitInputOutputMixin):
     """
     Adds two 8-bit numbers.
     """
