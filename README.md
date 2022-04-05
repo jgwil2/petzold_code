@@ -12,4 +12,12 @@ Python 3. This project has no dependencies outside the Python standard library.
 
 ## Gates
 
-The most basic object in this implementation is the logic gate. Following Petzold, we start with three primitive logic components implemented in Python: And, Or, and Not (plus one more for convenience: Relay, which simply allows us to wire an output to multiple inputs). All other components are composed of these wired together in various configurations.
+The most basic object in this implementation is the logic gate. Following Petzold, we start with three primitive logic components implemented in Python: And, Or, and Not (plus one more for convenience: Buffer, which simply allows us to wire an output to multiple inputs). All other components are composed of these wired together in various configurations.
+
+## Adders
+
+The first machines assembled from gates are binary adding machines. A HalfAdder provides sum and carry outputs given two binary digits of input. A FullAdder provides sum and carry outputs given three input digits (two digits plus a carry digit from a less significant operation). FullAdders can be wired together to add two binary numbers of arbitrary size, and since we are building an 8-bit computer, we use eight of them to build an EightBitAdder.
+
+## Flip-flops and Latches
+
+These components allow us to build circuits with memory.
