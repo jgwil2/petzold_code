@@ -1,9 +1,11 @@
 from base import InputPin, OutputPin, LogicComponent
 
 
-class Relay(LogicComponent):
+class Buffer(LogicComponent):
     """
-    Sends input signal to two different outputs
+    Sends input signal unaltered to an output
+
+    Ch. 11, p. 128
     """
 
     def __init__(self, name):
@@ -18,6 +20,8 @@ class Relay(LogicComponent):
 class Not(LogicComponent):
     """
     Inverts input signal - output = !input
+
+    Ch. 11, pp. 118-119
     """
 
     def __init__(self, name):
@@ -37,6 +41,8 @@ class And(LogicComponent):
     | ---- | ---- | ---- |
     | 0    | 0    | 0    |
     | 1    | 0    | 1    |
+
+    Ch. 11, pp. 111-115
     """
 
     def __init__(self, name):
@@ -59,6 +65,8 @@ class Or(LogicComponent):
     | ---- | ---- | ---- |
     | 0    | 0    | 1    |
     | 1    | 1    | 1    |
+
+    Ch. 11, pp. 116-118
     """
 
     def __init__(self, name):
@@ -79,6 +87,8 @@ class Nand(LogicComponent):
     | ---- | ---- | ---- |
     | 0    | 1    | 1    |
     | 1    | 1    | 0    |
+
+    Ch. 11, pp. 125-127
     """
 
     def __init__(self, name):
@@ -99,6 +109,8 @@ class Nor(LogicComponent):
     | ---- | ---- | ---- |
     | 0    | 1    | 0    |
     | 1    | 0    | 0    |
+
+    Ch. 11, pp. 122-125
     """
 
     def __init__(self, name):
@@ -120,6 +132,8 @@ class Xor(LogicComponent):
     | ---- | ---- | ---- |
     | 0    | 0    | 1    |
     | 1    | 1    | 0    |
+
+    Ch. 12, pp. 135-136
     """
 
     def __init__(self, name):
@@ -127,8 +141,8 @@ class Xor(LogicComponent):
         self.or_gate = Or(f"{name}#or")
         self.nand_gate = Nand(f"{name}#nand")
         self.and_gate = And(f"{name}#and")
-        self.relay_a = Relay(f"{name}#relay_a")
-        self.relay_b = Relay(f"{name}#relay_b")
+        self.relay_a = Buffer(f"{name}#relay_a")
+        self.relay_b = Buffer(f"{name}#relay_b")
         self.input_a = self.relay_a.input
         self.input_b = self.relay_b.input
         self.relay_a.output.connections.append(self.or_gate.input_a)

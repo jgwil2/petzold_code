@@ -1,5 +1,5 @@
 from base import LogicComponent
-from gates import And, Or, Relay, Xor
+from gates import And, Or, Buffer, Xor
 from mixins import EightBitInputOutputMixin
 
 
@@ -16,14 +16,16 @@ class HalfAdder(LogicComponent):
     | ------ | ---- | ---- |
     | 0      | 0    | 0    |
     | 1      | 0    | 1    |
+
+    Ch. 12, pp. 131-137
     """
 
     def __init__(self, name):
         super().__init__(name)
         self.and_gate = And(f"{name}#and")
         self.xor_gate = Xor(f"{name}#xor")
-        self.relay_a = Relay(f"{name}#relay_a")
-        self.relay_b = Relay(f"{name}#relay_b")
+        self.relay_a = Buffer(f"{name}#relay_a")
+        self.relay_b = Buffer(f"{name}#relay_b")
         self.input_a = self.relay_a.input
         self.input_b = self.relay_b.input
         self.relay_a.output.connections.append(self.and_gate.input_a)
@@ -49,6 +51,8 @@ class FullAdder(LogicComponent):
     | 1       | 0       | 1        | 0       | 1         |
     | 1       | 1       | 0        | 0       | 1         |
     | 1       | 1       | 1        | 1       | 1         |
+
+    Ch. 12, pp. 137-138
     """
 
     def __init__(self, name):
@@ -69,6 +73,8 @@ class FullAdder(LogicComponent):
 class EightBitAdder(LogicComponent, EightBitInputOutputMixin):
     """
     Adds two 8-bit numbers.
+
+    Ch. 12, pp. 139-142
     """
 
     def __init__(self, name):

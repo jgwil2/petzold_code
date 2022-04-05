@@ -1,11 +1,13 @@
 from base import LogicComponent
-from gates import And, Nor, Not, Relay
+from gates import And, Nor, Not, Buffer
 from mixins import EightBitInputOutputMixin
 
 
 class FlipFlop(LogicComponent):
     """
     An RS flip-flop
+
+    Ch. 14, pp. 159-162
     """
 
     def __init__(self, name):
@@ -24,12 +26,14 @@ class FlipFlop(LogicComponent):
 class OneBitLatch(LogicComponent):
     """
     A level-triggered D-type flip-flop
+
+    Ch. 14, pp. 163-167
     """
 
     def __init__(self, name):
         super().__init__(name)
-        self.relay_clock = Relay(f"{name}#relay_clock")
-        self.relay_data = Relay(f"{name}#relay_data")
+        self.relay_clock = Buffer(f"{name}#relay_clock")
+        self.relay_data = Buffer(f"{name}#relay_data")
         self.and_a = And(f"{name}#and_a")
         self.and_b = And(f"{name}#and_b")
         self.inverter = Not(f"{name}#inverter")
@@ -82,7 +86,7 @@ class EightBitLatch(LogicComponent, EightBitInputOutputMixin):
         self.q_5 = self.latch_5.q
         self.q_6 = self.latch_6.q
         self.q_7 = self.latch_7.q
-        self.relay = Relay("{name}#clock")
+        self.relay = Buffer("{name}#clock")
         self.clock = self.relay.input
         self.relay.output.connections.append(self.latch_0.clock)
         self.relay.output.connections.append(self.latch_1.clock)
