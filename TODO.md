@@ -2,7 +2,7 @@
 
 ## Ch. 14
 
-- [ ] 2-line-to-1-line selector
+- [x] 2-line-to-1-line selector
 - [ ] adder with accumulated sum (p. 168)
 - [ ] edge triggered flip-flop with preset and clear
 - [ ] revised adder with accumulated sum (p. 170)

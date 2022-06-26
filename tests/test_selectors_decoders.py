@@ -1,6 +1,6 @@
 import unittest
 
-from src.selectors_decoders import OneBitSelector
+from src.selectors_decoders import EightBitSelector, OneBitSelector
 
 
 class TestSelectorsDecoders(unittest.TestCase):
@@ -34,4 +34,21 @@ class TestSelectorsDecoders(unittest.TestCase):
             one_bit_selector.output.val,
             1,
             "select input is 1 so output value of B",
+        )
+
+    def test_eight_bit_selector(self):
+        eight_bit_selector = EightBitSelector("test_eight_bit_selector")
+        eight_bit_selector.set_data_as_int(32, "a")
+        eight_bit_selector.set_data_as_int(101, "b")
+        eight_bit_selector.select.val = 0
+        self.assertEqual(
+            eight_bit_selector.get_data_as_int("output"),
+            32,
+            "select input is 0 so output is value of A input",
+        )
+        eight_bit_selector.select.val = 1
+        self.assertEqual(
+            eight_bit_selector.get_data_as_int("output"),
+            101,
+            "select input is 1 so output is value of B input",
         )

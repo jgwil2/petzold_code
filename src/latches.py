@@ -10,7 +10,7 @@ class FlipFlop(LogicComponent):
     Ch. 14, pp. 159-162
     """
 
-    def __init__(self, name):
+    def __init__(self, name: str):
         super().__init__(name)
         self.nor_a = Nor(f"{name}#nor_a")
         self.nor_b = Nor(f"{name}#nor_b")
@@ -30,7 +30,7 @@ class OneBitLatch(LogicComponent):
     Ch. 14, pp. 163-167
     """
 
-    def __init__(self, name):
+    def __init__(self, name: str):
         super().__init__(name)
         self.relay_clock = Buffer(f"{name}#relay_clock")
         self.relay_data = Buffer(f"{name}#relay_data")
@@ -60,16 +60,16 @@ class EightBitLatch(LogicComponent, EightBitInputOutputMixin):
     A latch capable of storing a single 8-bit value
     """
 
-    def __init__(self, name):
+    def __init__(self, name: str):
         super().__init__(name)
-        self.latch_0 = OneBitLatch("{name}#latch_0")
-        self.latch_1 = OneBitLatch("{name}#latch_1")
-        self.latch_2 = OneBitLatch("{name}#latch_2")
-        self.latch_3 = OneBitLatch("{name}#latch_3")
-        self.latch_4 = OneBitLatch("{name}#latch_4")
-        self.latch_5 = OneBitLatch("{name}#latch_5")
-        self.latch_6 = OneBitLatch("{name}#latch_6")
-        self.latch_7 = OneBitLatch("{name}#latch_7")
+        self.latch_0 = OneBitLatch(f"{name}#latch_0")
+        self.latch_1 = OneBitLatch(f"{name}#latch_1")
+        self.latch_2 = OneBitLatch(f"{name}#latch_2")
+        self.latch_3 = OneBitLatch(f"{name}#latch_3")
+        self.latch_4 = OneBitLatch(f"{name}#latch_4")
+        self.latch_5 = OneBitLatch(f"{name}#latch_5")
+        self.latch_6 = OneBitLatch(f"{name}#latch_6")
+        self.latch_7 = OneBitLatch(f"{name}#latch_7")
         self.d_0 = self.latch_0.data
         self.d_1 = self.latch_1.data
         self.d_2 = self.latch_2.data
@@ -86,7 +86,7 @@ class EightBitLatch(LogicComponent, EightBitInputOutputMixin):
         self.q_5 = self.latch_5.q
         self.q_6 = self.latch_6.q
         self.q_7 = self.latch_7.q
-        self.relay = Buffer("{name}#clock")
+        self.relay = Buffer(f"{name}#clock")
         self.clock = self.relay.input
         self.relay.output.connections.append(self.latch_0.clock)
         self.relay.output.connections.append(self.latch_1.clock)
