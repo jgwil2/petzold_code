@@ -1,6 +1,6 @@
 import unittest
 
-from latches import EightBitLatch, OneBitLatch
+from src.latches import EightBitLatch, OneBitLatch
 
 
 class TestLatches(unittest.TestCase):

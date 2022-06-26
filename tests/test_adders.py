@@ -1,6 +1,6 @@
 import unittest
 
-from adders import FullAdder, HalfAdder, EightBitAdder
+from src.adders import FullAdder, HalfAdder, EightBitAdder
 
 
 class TestAdders(unittest.TestCase):

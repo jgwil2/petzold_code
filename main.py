@@ -1,4 +1,4 @@
-from gates import Nand, Not
+from src.gates import Nand, Not
 
 
 def main():

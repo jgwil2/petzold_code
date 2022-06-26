@@ -1,4 +1,4 @@
-from base import InputPin, OutputPin, LogicComponent
+from src.base import InputPin, OutputPin, LogicComponent
 
 
 class Buffer(LogicComponent):

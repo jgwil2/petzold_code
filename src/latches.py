@@ -1,6 +1,6 @@
-from base import LogicComponent
-from gates import And, Nor, Not, Buffer
-from mixins import EightBitInputOutputMixin
+from src.base import LogicComponent
+from src.gates import And, Nor, Not, Buffer
+from src.mixins import EightBitInputOutputMixin
 
 
 class FlipFlop(LogicComponent):

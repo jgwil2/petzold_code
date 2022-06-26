@@ -1,6 +1,6 @@
-from base import LogicComponent
-from gates import And, Or, Buffer, Xor
-from mixins import EightBitInputOutputMixin
+from src.base import LogicComponent
+from src.gates import And, Or, Buffer, Xor
+from src.mixins import EightBitInputOutputMixin
 
 
 class HalfAdder(LogicComponent):

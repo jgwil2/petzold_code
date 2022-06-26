@@ -1,6 +1,6 @@
 import unittest
 
-from gates import And, Nand, Nor, Not, Or, Xor
+from src.gates import And, Nand, Nor, Not, Or, Xor
 
 
 class TestLogicGates(unittest.TestCase):

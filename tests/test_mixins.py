@@ -1,7 +1,7 @@
 import unittest
 
-from adders import EightBitAdder
-from latches import EightBitLatch
+from src.adders import EightBitAdder
+from src.latches import EightBitLatch
 
 
 class TestMixins(unittest.TestCase):
