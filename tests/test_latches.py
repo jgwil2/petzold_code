@@ -33,8 +33,12 @@ class TestLatches(unittest.TestCase):
         )
         # store 0 in the latch
         test_latch.clock.val = 1
-        self.assertEqual(test_latch.q.val, 0, "When clock = 1, data is overwritten")
-        self.assertEqual(test_latch.q_bar.val, 1, "When clock = 1, data is overwritten")
+        self.assertEqual(
+            test_latch.q.val, 0, "When clock = 1, data is overwritten"
+        )
+        self.assertEqual(
+            test_latch.q_bar.val, 1, "When clock = 1, data is overwritten"
+        )
         # shift clock
         test_latch.clock.val = 0
         test_latch.data.val = 1
@@ -50,7 +54,9 @@ class TestLatches(unittest.TestCase):
     def test_eight_bit_latch(self):
         test_latch = EightBitLatch("test_latch")
         for i in range(8):
-            self.assertEqual(getattr(test_latch, f"q_{i}").val, 0, "Initializes to 0")
+            self.assertEqual(
+                getattr(test_latch, f"q_{i}").val, 0, "Initializes to 0"
+            )
         test_latch.clock.val = 1
         test_latch.d_0.val = 1
         test_latch.d_1.val = 1

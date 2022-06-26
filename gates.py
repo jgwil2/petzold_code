@@ -52,7 +52,9 @@ class And(LogicComponent):
         self.output = OutputPin(self)
 
     def evaluate(self):
-        self.output.val = 1 if self.input_a.val == 1 and self.input_b.val == 1 else 0
+        self.output.val = (
+            1 if self.input_a.val == 1 and self.input_b.val == 1 else 0
+        )
 
 
 class Or(LogicComponent):
@@ -76,7 +78,9 @@ class Or(LogicComponent):
         self.output = OutputPin(self)
 
     def evaluate(self):
-        self.output.val = 1 if self.input_a.val == 1 or self.input_b.val == 1 else 0
+        self.output.val = (
+            1 if self.input_a.val == 1 or self.input_b.val == 1 else 0
+        )
 
 
 class Nand(LogicComponent):

@@ -12,30 +12,46 @@ class TestAdders(unittest.TestCase):
         half_adder.input_a.val = 1
         half_adder.input_b.val = 1
         self.assertEqual(half_adder.output_sum.val, 0, "1 + 1: sum bit is 0")
-        self.assertEqual(half_adder.output_carry.val, 1, "1 + 1: carry bit is 1")
+        self.assertEqual(
+            half_adder.output_carry.val, 1, "1 + 1: carry bit is 1"
+        )
         half_adder.input_a.val = 0
         self.assertEqual(half_adder.output_sum.val, 1, "0 + 1: sum bit is 1")
-        self.assertEqual(half_adder.output_carry.val, 0, "0 + 1: carry bit is 0")
+        self.assertEqual(
+            half_adder.output_carry.val, 0, "0 + 1: carry bit is 0"
+        )
         half_adder.input_b.val = 0
         self.assertEqual(half_adder.output_sum.val, 0, "0 + 0: sum bit is 0")
-        self.assertEqual(half_adder.output_carry.val, 0, "0 + 0: carry bit is 0")
+        self.assertEqual(
+            half_adder.output_carry.val, 0, "0 + 0: carry bit is 0"
+        )
 
     def test_full_adder(self):
         full_adder = FullAdder("test_full_adder")
         full_adder.input_a.val = 1
         full_adder.input_b.val = 1
         full_adder.input_carry.val = 1
-        self.assertEqual(full_adder.output_sum.val, 1, "adder(1, 1, 1) = (1, 1)")
-        self.assertEqual(full_adder.output_carry.val, 1, "adder(1, 1, 1) = (1, 1)")
+        self.assertEqual(
+            full_adder.output_sum.val, 1, "adder(1, 1, 1) = (1, 1)"
+        )
+        self.assertEqual(
+            full_adder.output_carry.val, 1, "adder(1, 1, 1) = (1, 1)"
+        )
         full_adder.input_carry.val = 0
         self.assertEqual(full_adder.output_sum.val, 0, "adder(1, 1, 0) = (0, 1")
-        self.assertEqual(full_adder.output_carry.val, 1, "adder(1, 1, 0) = (0, 1)")
+        self.assertEqual(
+            full_adder.output_carry.val, 1, "adder(1, 1, 0) = (0, 1)"
+        )
         full_adder.input_b.val = 0
         self.assertEqual(full_adder.output_sum.val, 1, "adder(1, 0, 0) = (1, 0")
-        self.assertEqual(full_adder.output_carry.val, 0, "adder(1, 0, 0) = (1, 0)")
+        self.assertEqual(
+            full_adder.output_carry.val, 0, "adder(1, 0, 0) = (1, 0)"
+        )
         full_adder.input_a.val = 0
         self.assertEqual(full_adder.output_sum.val, 0, "adder(0, 0, 0) = (0, 0")
-        self.assertEqual(full_adder.output_carry.val, 0, "adder(0, 0, 0) = (0, 0)")
+        self.assertEqual(
+            full_adder.output_carry.val, 0, "adder(0, 0, 0) = (0, 0)"
+        )
 
     def test_eight_bit_adder(self):
         eight_bit_adder = EightBitAdder("test_eight_bit_adder")

@@ -4,7 +4,9 @@ class EightBitInputOutputMixin(object):
         # iterate least-significant to most-significant
         input_str = format(input, "08b")
         for i in range(8):
-            getattr(self, f"{prefix}_{7-i}").val = 1 if input_str[i] == "1" else 0
+            getattr(self, f"{prefix}_{7-i}").val = (
+                1 if input_str[i] == "1" else 0
+            )
 
     def get_data_as_int(self, prefix: str) -> int:
         bin_str = ""
