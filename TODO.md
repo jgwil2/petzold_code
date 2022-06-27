@@ -13,5 +13,5 @@
 
 - [ ] 8x1 RAM array
 - [ ] 8x2 RAM array
-- [ ] 64Kx8 RAM array (not assembled from primitives)
+- [x] 64Kx8 RAM array (not assembled from primitives)
 - [ ] control panel

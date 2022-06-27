@@ -1,5 +1,5 @@
 from typing import List
-from base import LogicComponent
+from src.base import LogicComponent
 
 
 class SixtyFourKilobyteRamArray(LogicComponent):
@@ -15,11 +15,21 @@ class SixtyFourKilobyteRamArray(LogicComponent):
     memory = [0] * (2**16)
     address = [0] * 16
     data_in = [0] * 8
-    data_out = [0] * 8
+    _data_out = [0] * 8
     _write = 0
 
     def __init__(self, name: str) -> None:
         super().__init__(name)
+
+    @property
+    def data_out(self):
+        address_int = self._binary_list_to_int(self.address)
+        self._data_out = self._int_to_binary_list(self.memory[address_int])
+        return self._data_out
+
+    @data_out.setter
+    def data_out(self, data_out):
+        self._data_out = data_out
 
     @property
     def write(self):
@@ -32,23 +42,18 @@ class SixtyFourKilobyteRamArray(LogicComponent):
             address_int = self._binary_list_to_int(self.address)
             self.memory[address_int] = self._binary_list_to_int(self.data_in)
 
-    @staticmethod
-    def _binary_list_to_int(vals: list[int]) -> int:
+    def _binary_list_to_int(self, vals: list[int]) -> int:
         bin_str = ""
-        for i in vals:
+        for i in reversed(vals):
             bin_str += str(i)
         bin_str = "0b" + bin_str
         return int(bin_str, 2)
 
-    @staticmethod
-    def _int_to_binary_list(val: int) -> list[int]:
+    def _int_to_binary_list(self, val: int) -> list[int]:
+        if val > 255:
+            raise ValueError("Integer value must be less than 255")
         bin_list: List[int] = []
         val_str = format(val, "08b")
         for i in range(8):
-            bin_list[7 - i] = int(val_str[i])
+            bin_list.append(int(val_str[7 - i]))
         return bin_list
-
-    def evaluate(self):
-        # TODO need to evaluate when address is updated
-        address_int = self._binary_list_to_int(self.address)
-        self.data_out = self._int_to_binary_list(self.memory[address_int])
