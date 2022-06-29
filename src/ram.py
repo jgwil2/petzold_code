@@ -9,6 +9,10 @@ class SixtyFourKilobyteRamArray(LogicComponent):
     (0-255). The `data_in`, `data_out`, and `address properties are
     lists of binary ints (0-1).
 
+    TODO inputs and outputs will have to connect to Pins or mimic the
+    Pin interface in order to auto-update when connected to other
+    LogicComponents
+
     Ch. 16, pp. 203-205
     """
 
