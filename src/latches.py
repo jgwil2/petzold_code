@@ -55,6 +55,24 @@ class OneBitLatch(LogicComponent):
         self.q_bar.val = 1
 
 
+class OneBitEdgeTriggeredLatch(LogicComponent):
+    """
+    An edge-triggered D-type flip-flop with preset and clear
+
+    | Pre | Clr | D | Clk | Q | Q-bar |
+    |-----|-----|---|-----|---|-------|
+    | 0   | 1   | X | X   | 0 | 1     |
+    | 1   | 0   | X | X   | 1 | 0     |
+    | 0   | 0   | 0 | T   | 0 | 1     |
+    | 0   | 0   | 1 | T   | 1 | 0     |
+    | 0   | 0   | X | 0   | Q | Q-bar |
+
+    Ch. 14, pp. 178-179
+    """
+
+    pass
+
+
 class EightBitLatch(LogicComponent, EightBitInputOutputMixin):
     """
     A latch capable of storing a single 8-bit value
