@@ -1,6 +1,27 @@
 from src.base import LogicComponent
-from src.gates import And, Nor, Not, Buffer
+from src.gates import And, Nor, Not, Buffer, Or
 from src.mixins import EightBitInputOutputMixin
+
+
+class ThreeInputNor(LogicComponent):
+    """
+    Three-input NOR gate used in edge-triggered latch
+
+    Given inputs A, B, C, if A == 0 and B == 0 and C == 0 then
+        output == 1
+        else output == 0
+    """
+
+    def __init__(self, name: str):
+        super().__init__(name)
+        self.or_gate = Or(f"{name}#or")
+        self.nor_gate = Nor(f"{name}#nor")
+        self.input_a = self.or_gate.input_a
+        self.input_b = self.or_gate.input_b
+        self.or_gate.output.val = 1
+        self.input_c = self.nor_gate.input_a
+        self.or_gate.output.connections.append(self.nor_gate.input_b)
+        self.output = self.nor_gate.output
 
 
 class FlipFlop(LogicComponent):

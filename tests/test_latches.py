@@ -1,11 +1,40 @@
 import unittest
 
-from src.latches import EightBitLatch, OneBitLatch
+from src.latches import (
+    EightBitLatch,
+    OneBitEdgeTriggeredLatch,
+    OneBitLatch,
+    ThreeInputNor,
+)
 
 
 class TestLatches(unittest.TestCase):
     def setUp(self):
         pass
+
+    def test_three_input_nor(self):
+        test_nor_gate = ThreeInputNor("test_three_input_nor")
+        self.assertEqual(
+            test_nor_gate.input_a.val, 0, "Levels are correctly set on init"
+        )
+        self.assertEqual(
+            test_nor_gate.input_b.val, 0, "Levels are correctly set on init"
+        )
+        self.assertEqual(
+            test_nor_gate.input_c.val, 0, "Levels are correctly set on init"
+        )
+        self.assertEqual(
+            test_nor_gate.output.val, 1, "Levels are correctly set on init"
+        )
+        test_nor_gate.input_a.val = 1
+        self.assertEqual(test_nor_gate.output.val, 0, "Nor(1, 0, 0) = 0")
+        test_nor_gate.input_a.val = 0
+        self.assertEqual(test_nor_gate.output.val, 1, "Nor(0, 0, 0) = 1")
+        test_nor_gate.input_b.val = 1
+        self.assertEqual(test_nor_gate.output.val, 0, "Nor(0, 1, 0) = 0")
+        test_nor_gate.input_b.val = 0
+        test_nor_gate.input_c.val = 1
+        self.assertEqual(test_nor_gate.output.val, 0, "Nor(0, 0, 1) = 0")
 
     def test_one_bit_latch(self):
         test_latch = OneBitLatch("test_latch")
