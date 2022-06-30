@@ -103,6 +103,7 @@ class Nand(LogicComponent):
         self.input_a = self.and_gate.input_a
         self.input_b = self.and_gate.input_b
         self.output = self.inverter.output
+        self.output.val = 1
 
 
 class Nor(LogicComponent):

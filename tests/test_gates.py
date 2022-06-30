@@ -40,6 +40,11 @@ class TestLogicGates(unittest.TestCase):
 
     def test_nand(self):
         test_nand_gate = Nand("test_nand_gate")
+        self.assertEqual(test_nand_gate.input_a.val, 0)
+        self.assertEqual(test_nand_gate.input_b.val, 0)
+        self.assertEqual(
+            test_nand_gate.output.val, 1, "Levels are correctly set on init"
+        )
         test_nand_gate.input_a.val = 1
         test_nand_gate.input_b.val = 1
         self.assertEqual(test_nand_gate.output.val, 0, "!(1 x 1) = 0")
