@@ -28,6 +28,7 @@ class Not(LogicComponent):
         super().__init__(name)
         self.input = InputPin(self)
         self.output = OutputPin(self)
+        self.output.val = 1
 
     def evaluate(self):
         self.output.val = 0 if self.input.val == 1 else 1
