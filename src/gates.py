@@ -125,6 +125,7 @@ class Nor(LogicComponent):
         self.input_a = self.or_gate.input_a
         self.input_b = self.or_gate.input_b
         self.output = self.inverter.output
+        self.output.val = 1
 
 
 class Xor(LogicComponent):

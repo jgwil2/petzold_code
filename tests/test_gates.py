@@ -52,6 +52,11 @@ class TestLogicGates(unittest.TestCase):
 
     def test_nor(self):
         test_nor_gate = Nor("test_nor_gate")
+        self.assertEqual(test_nor_gate.input_a.val, 0)
+        self.assertEqual(test_nor_gate.input_b.val, 0)
+        self.assertEqual(
+            test_nor_gate.output.val, 1, "Levels are correctly set on init"
+        )
         test_nor_gate.input_a.val = 1
         test_nor_gate.input_b.val = 1
         self.assertEqual(test_nor_gate.output.val, 0, "!(1 + 1) = 0")
