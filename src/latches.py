@@ -88,10 +88,50 @@ class OneBitEdgeTriggeredLatch(LogicComponent):
     | 0   | 0   | 1 | T   | 1 | 0     |
     | 0   | 0   | X | 0   | Q | Q-bar |
 
+    Note: T signifies transition from 0 to 1
+
     Ch. 14, pp. 178-179
     """
 
-    pass
+    def __init__(self, name: str):
+        super().__init__(name)
+        self.nor_a = ThreeInputNor(f"{name}#nor_a")
+        self.nor_b = ThreeInputNor(f"{name}#nor_b")
+        self.nor_c = ThreeInputNor(f"{name}#nor_c")
+        self.nor_d = ThreeInputNor(f"{name}#nor_d")
+        self.nor_e = ThreeInputNor(f"{name}#nor_e")
+        self.nor_f = ThreeInputNor(f"{name}#nor_f")
+        self.inverter = Not(f"{name}#inverter")
+        self.clear_relay = Buffer(f"{name}#clear_relay")
+        self.preset_relay = Buffer(f"{name}#preset_relay")
+        self.clock_relay = Buffer(f"{name}#clock_relay")
+        self.clear = self.clear_relay.input
+        self.preset = self.preset_relay.input
+        self.clock = self.inverter.input
+        self.inverter.output.connections.append(self.clock_relay.input)
+        self.clear_relay.output.connections.append(self.nor_a.input_a)
+        self.clear_relay.output.connections.append(self.nor_e.input_a)
+        self.preset_relay.output.connections.append(self.nor_b.input_b)
+        self.preset_relay.output.connections.append(self.nor_d.input_b)
+        self.preset_relay.output.connections.append(self.nor_f.input_b)
+        self.clock_relay.output.connections.append(self.nor_b.input_c)
+        self.clock_relay.output.connections.append(self.nor_c.input_b)
+        self.data = self.nor_d.input_c
+        self.nor_a.output.connections.append(self.nor_b.input_a)
+        self.nor_b.output.connections.append(self.nor_a.input_c)
+        self.nor_b.output.connections.append(self.nor_c.input_a)
+        self.nor_b.output.connections.append(self.nor_e.input_b)
+        self.nor_c.output.connections.append(self.nor_d.input_a)
+        self.nor_c.output.connections.append(self.nor_f.input_c)
+        self.nor_d.output.connections.append(self.nor_a.input_b)
+        self.nor_d.output.connections.append(self.nor_c.input_c)
+        self.nor_e.output.connections.append(self.nor_f.input_a)
+        self.nor_f.output.connections.append(self.nor_e.input_c)
+        self.q = self.nor_e.output
+        self.q_bar = self.nor_f.output
+        self.inverter.output.val = 1
+        self.nor_d.output.val = 1
+        self.nor_f.output.val = 1
 
 
 class EightBitLatch(LogicComponent, EightBitInputOutputMixin):
