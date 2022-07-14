@@ -88,7 +88,7 @@ class OneBitEdgeTriggeredLatch(LogicComponent):
     | 0   | 0   | 1 | T   | 1 | 0     |
     | 0   | 0   | X | 0   | Q | Q-bar |
 
-    Note: T signifies transition from 0 to 1
+    Note: T signifies positive-edge transition (from 0 to 1)
 
     Ch. 14, pp. 178-179
     """
