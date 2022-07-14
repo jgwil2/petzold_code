@@ -64,6 +64,7 @@ class InputPin(Pin):
         if self._val != val:
             self._val = val
             self.component.evaluate()
+            print("val changed to", val, self.component.name)
 
 
 class OutputPin(Pin):
