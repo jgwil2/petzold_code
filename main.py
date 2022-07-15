@@ -16,6 +16,9 @@ def main():
     print("set clock to 0")
     print("---")
     test_latch.clock.val = 0
+    import pdb
+
+    pdb.set_trace()
 
 
 if __name__ == "__main__":

@@ -23,6 +23,7 @@ class OneBitSelector(LogicComponent):
         self.and_b = And(f"{name}#and_b")
         self.or_gate = Or(f"{name}#or_gate")
         self.inverter = Not(f"{name}#inverter")
+        self.inverter.output.val = 1
         self.relay = Buffer(f"{name}#relay")
         self.select = self.relay.input
         self.input_a = self.and_a.input_a

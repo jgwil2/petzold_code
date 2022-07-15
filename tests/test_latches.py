@@ -38,8 +38,6 @@ class TestLatches(unittest.TestCase):
 
     def test_one_bit_latch(self):
         test_latch = OneBitLatch("test_latch")
-        test_latch.clock.val = 0
-        test_latch.data.val = 0
         self.assertEqual(test_latch.q.val, 0, "Initial output = 0")
         self.assertEqual(test_latch.q_bar.val, 1, "Initial !output = 1")
         # store 1 in the latch
@@ -128,13 +126,13 @@ class TestLatches(unittest.TestCase):
             test_latch.q.val, 0, "When clock = 1, data does not affect output"
         )
         # shift clock
-        # FIXME when Q = 0 and data = 1, clock 1->0 results in Q = 1
         test_latch.clock.val = 0
         self.assertEqual(
             test_latch.clock.val,
             0,
             "When clock = 0, data does not affect output",
         )
+        # FIXME when Q = 0 and data = 1, clock 1->0 results in Q = 1
         self.assertEqual(
             test_latch.q.val, 0, "When clock = 0, data does not affect output"
         )

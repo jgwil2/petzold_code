@@ -62,9 +62,9 @@ class InputPin(Pin):
         # this means that circuits cannot self-update from their initial
         # state - correct output levels must be set in init method
         if self._val != val:
+            # print("input changed from", self._val, "to", val, self.component.name)
             self._val = val
             self.component.evaluate()
-            print("val changed to", val, self.component.name)
 
 
 class OutputPin(Pin):
@@ -85,6 +85,8 @@ class OutputPin(Pin):
 
     @val.setter
     def val(self, val: int):
-        self._val = val
-        for connection in self.connections:
-            connection.val = val
+        if self._val != val:
+            # print("output changed from", self._val, "to", val, self.component.name)
+            self._val = val
+            for connection in self.connections:
+                connection.val = val

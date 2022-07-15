@@ -28,7 +28,7 @@ class Not(LogicComponent):
         super().__init__(name)
         self.input = InputPin(self)
         self.output = OutputPin(self)
-        self.output.val = 1
+        self.output._val = 1
 
     def evaluate(self):
         self.output.val = 0 if self.input.val == 1 else 1
@@ -104,7 +104,7 @@ class Nand(LogicComponent):
         self.input_a = self.and_gate.input_a
         self.input_b = self.and_gate.input_b
         self.output = self.inverter.output
-        self.output.val = 1
+        self.output._val = 1
 
 
 class Nor(LogicComponent):
@@ -127,7 +127,7 @@ class Nor(LogicComponent):
         self.input_a = self.or_gate.input_a
         self.input_b = self.or_gate.input_b
         self.output = self.inverter.output
-        self.output.val = 1
+        self.output._val = 1
 
 
 class Xor(LogicComponent):
@@ -156,7 +156,8 @@ class Xor(LogicComponent):
         self.relay_a.output.connections.append(self.nand_gate.input_a)
         self.relay_b.output.connections.append(self.or_gate.input_b)
         self.relay_b.output.connections.append(self.nand_gate.input_b)
-        self.or_gate.output.connections.append(self.and_gate.input_b)
-        self.nand_gate.output.connections.append(self.and_gate.input_a)
-        self.nand_gate.output.val = 1
+        self.or_gate.output.connections.append(self.and_gate.input_a)
+        self.nand_gate.output.connections.append(self.and_gate.input_b)
         self.output = self.and_gate.output
+        self.nand_gate.output._val = 1
+        self.and_gate.input_b._val = 1

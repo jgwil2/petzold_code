@@ -18,7 +18,6 @@ class ThreeInputNor(LogicComponent):
         self.nor_gate = Nor(f"{name}#nor")
         self.input_a = self.or_gate.input_a
         self.input_b = self.or_gate.input_b
-        self.or_gate.output.val = 1
         self.input_c = self.nor_gate.input_a
         self.or_gate.output.connections.append(self.nor_gate.input_b)
         self.output = self.nor_gate.output
@@ -73,7 +72,11 @@ class OneBitLatch(LogicComponent):
         self.nor_b.output.connections.append(self.nor_a.input_b)
         self.q = self.nor_a.output
         self.q_bar = self.nor_b.output
-        self.q_bar.val = 1
+
+        self.and_a.input_a._val = 1
+        self.nor_a.input_b._val = 1
+        self.nor_a.output._val = 0
+        self.nor_b.output._val = 1
 
 
 class OneBitEdgeTriggeredLatch(LogicComponent):
