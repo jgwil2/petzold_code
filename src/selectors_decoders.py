@@ -23,18 +23,20 @@ class OneBitSelector(LogicComponent):
         self.and_b = And(f"{name}#and_b")
         self.or_gate = Or(f"{name}#or_gate")
         self.inverter = Not(f"{name}#inverter")
-        self.inverter.output.val = 1
         self.relay = Buffer(f"{name}#relay")
+        # NOTE use val not _val so that internal pins are correctly set
+        # setting levels before connections to avoid noise when logging
+        self.inverter.output.val = 1
+        self.and_a.input_b.val = 1
         self.select = self.relay.input
         self.input_a = self.and_a.input_a
+        self.input_b = self.and_b.input_a
         self.relay.output.connections.append(self.inverter.input)
         self.inverter.output.connections.append(self.and_a.input_b)
-        self.input_b = self.and_b.input_a
         self.relay.output.connections.append(self.and_b.input_b)
         self.and_a.output.connections.append(self.or_gate.input_a)
         self.and_b.output.connections.append(self.or_gate.input_b)
         self.output = self.or_gate.output
-        self.inverter.output.val = 1
 
 
 class EightBitSelector(LogicComponent, EightBitInputOutputMixin):
