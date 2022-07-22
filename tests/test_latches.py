@@ -146,6 +146,14 @@ class TestLatches(unittest.TestCase):
             1,
             "When clock = 0, data does not affect output",
         )
+        test_latch.preset.setExternalPin(1)
+        self.assertEqual(test_latch.q.val, 1, "When preset = 1, output = 1")
+        self.assertEqual(test_latch.q_bar.val, 0, "When preset = 1, output = 1")
+        # NOTE preset and clear should not both be 1
+        test_latch.preset.setExternalPin(0)
+        test_latch.clear.setExternalPin(1)
+        self.assertEqual(test_latch.q.val, 0, "When clear = 1, output = 1")
+        self.assertEqual(test_latch.q_bar.val, 1, "When clear = 1, output = 1")
 
     def test_eight_bit_latch(self):
         test_latch = EightBitLatch("test_latch")
