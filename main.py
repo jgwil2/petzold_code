@@ -6,19 +6,15 @@ def main():
     print("---")
     print("set clock to 1")
     print("---")
-    test_latch.clock.val = 1
+    test_latch.clock.setExternalPin(1)
     print("---")
     print("set data to 1")
     print("---")
-    test_latch.data.val = 1
-    # FIXME when Q = 0 and data = 1, clock 1->0 results in Q = 1
+    test_latch.data.setExternalPin(1)
     print("---")
     print("set clock to 0")
     print("---")
-    test_latch.clock.val = 0
-    import pdb
-
-    pdb.set_trace()
+    test_latch.clock.setExternalPin(0)
 
 
 if __name__ == "__main__":

@@ -15,9 +15,9 @@ class TestLogicGates(unittest.TestCase):
         self.assertEqual(
             test_inverter.output.val, 1, "Levels are correctly set on init"
         )
-        test_inverter.input.val = 1
+        test_inverter.input.setExternalPin(1)
         self.assertEqual(test_inverter.output.val, 0, "!1 = 0")
-        test_inverter.input.val = 0
+        test_inverter.input.setExternalPin(0)
         self.assertEqual(test_inverter.output.val, 1, "!0 = 1")
 
     def test_and(self):
@@ -31,14 +31,14 @@ class TestLogicGates(unittest.TestCase):
         self.assertEqual(
             test_and_gate.output.val, 0, "Levels are correctly set on init"
         )
-        test_and_gate.input_a.val = 1
-        test_and_gate.input_b.val = 1
+        test_and_gate.input_a.setExternalPin(1)
+        test_and_gate.input_b.setExternalPin(1)
         self.assertEqual(test_and_gate.output.val, 1, "1 x 1 = 1")
-        test_and_gate.input_a.val = 0
+        test_and_gate.input_a.setExternalPin(0)
         self.assertEqual(test_and_gate.output.val, 0, "0 x 1 = 0")
-        test_and_gate.input_b.val = 0
+        test_and_gate.input_b.setExternalPin(0)
         self.assertEqual(test_and_gate.output.val, 0, "0 x 0 = 0")
-        test_and_gate.input_a.val = 1
+        test_and_gate.input_a.setExternalPin(1)
         self.assertEqual(test_and_gate.output.val, 0, "1 x 0 = 0")
 
     def test_or(self):
@@ -52,14 +52,14 @@ class TestLogicGates(unittest.TestCase):
         self.assertEqual(
             test_or_gate.output.val, 0, "Levels are correctly set on init"
         )
-        test_or_gate.input_a.val = 1
-        test_or_gate.input_b.val = 1
+        test_or_gate.input_a.setExternalPin(1)
+        test_or_gate.input_b.setExternalPin(1)
         self.assertEqual(test_or_gate.output.val, 1, "1 + 1 = 1")
-        test_or_gate.input_a.val = 0
+        test_or_gate.input_a.setExternalPin(0)
         self.assertEqual(test_or_gate.output.val, 1, "0 + 1 = 1")
-        test_or_gate.input_b.val = 0
+        test_or_gate.input_b.setExternalPin(0)
         self.assertEqual(test_or_gate.output.val, 0, "0 + 0 = 0")
-        test_or_gate.input_a.val = 1
+        test_or_gate.input_a.setExternalPin(1)
         self.assertEqual(test_or_gate.output.val, 1, "1 + 0 = 1")
 
     def test_nand(self):
@@ -73,14 +73,14 @@ class TestLogicGates(unittest.TestCase):
         self.assertEqual(
             test_nand_gate.output.val, 1, "Levels are correctly set on init"
         )
-        test_nand_gate.input_a.val = 1
-        test_nand_gate.input_b.val = 1
+        test_nand_gate.input_a.setExternalPin(1)
+        test_nand_gate.input_b.setExternalPin(1)
         self.assertEqual(test_nand_gate.output.val, 0, "!(1 x 1) = 0")
-        test_nand_gate.input_a.val = 0
+        test_nand_gate.input_a.setExternalPin(0)
         self.assertEqual(test_nand_gate.output.val, 1, "!(0 x 1) = 1")
-        test_nand_gate.input_b.val = 0
+        test_nand_gate.input_b.setExternalPin(0)
         self.assertEqual(test_nand_gate.output.val, 1, "!(0 x 0) = 1")
-        test_nand_gate.input_a.val = 1
+        test_nand_gate.input_a.setExternalPin(1)
         self.assertEqual(test_nand_gate.output.val, 1, "!(1 x 0) = 1")
 
     def test_nor(self):
@@ -94,14 +94,14 @@ class TestLogicGates(unittest.TestCase):
         self.assertEqual(
             test_nor_gate.output.val, 1, "Levels are correctly set on init"
         )
-        test_nor_gate.input_a.val = 1
-        test_nor_gate.input_b.val = 1
+        test_nor_gate.input_a.setExternalPin(1)
+        test_nor_gate.input_b.setExternalPin(1)
         self.assertEqual(test_nor_gate.output.val, 0, "!(1 + 1) = 0")
-        test_nor_gate.input_a.val = 0
+        test_nor_gate.input_a.setExternalPin(0)
         self.assertEqual(test_nor_gate.output.val, 0, "!(0 + 1) = 0")
-        test_nor_gate.input_b.val = 0
+        test_nor_gate.input_b.setExternalPin(0)
         self.assertEqual(test_nor_gate.output.val, 1, "!(0 + 0) = 1")
-        test_nor_gate.input_a.val = 1
+        test_nor_gate.input_a.setExternalPin(1)
         self.assertEqual(test_nor_gate.output.val, 0, "!(1 + 0) = 0")
 
     def test_xor(self):
@@ -116,13 +116,13 @@ class TestLogicGates(unittest.TestCase):
             test_xor_gate.output.val, 0, "Levels are correctly set on init"
         )
         self.assertEqual(test_xor_gate.output.val, 0, "(0 + 0) * (!0 + !0) = 0")
-        test_xor_gate.input_a.val = 1
+        test_xor_gate.input_a.setExternalPin(1)
         self.assertEqual(test_xor_gate.output.val, 1, "(0 + 1) * (!0 + !1) = 1")
-        test_xor_gate.input_b.val = 1
+        test_xor_gate.input_b.setExternalPin(1)
         self.assertEqual(test_xor_gate.output.val, 0, "(1 + 1) * (!1 + !1) = 0")
-        test_xor_gate.input_a.val = 0
+        test_xor_gate.input_a.setExternalPin(0)
         self.assertEqual(test_xor_gate.output.val, 1, "(0 + 1) * (!0 + !1) = 1")
-        test_xor_gate.input_b.val = 0
+        test_xor_gate.input_b.setExternalPin(0)
         self.assertEqual(test_xor_gate.output.val, 0, "(0 + 0) * (!0 + !0) = 0")
-        test_xor_gate.input_a.val = 1
+        test_xor_gate.input_a.setExternalPin(1)
         self.assertEqual(test_xor_gate.output.val, 1, "(1 + 0) * (!1 + !0) = 1")

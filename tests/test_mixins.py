@@ -22,10 +22,10 @@ class TestMixins(unittest.TestCase):
         test_latch = EightBitLatch("test_latch")
         test_latch.set_data_as_int(32, "d")
         self.assertEqual(test_latch.get_data_as_int("q"), 0)
-        test_latch.clock.val = 1
+        test_latch.clock.setExternalPin(1)
         self.assertEqual(test_latch.get_data_as_int("q"), 32)
-        test_latch.clock.val = 0
+        test_latch.clock.setExternalPin(0)
         test_latch.set_data_as_int(132, "d")
         self.assertEqual(test_latch.get_data_as_int("q"), 32)
-        test_latch.clock.val = 1
+        test_latch.clock.setExternalPin(1)
         self.assertEqual(test_latch.get_data_as_int("q"), 132)

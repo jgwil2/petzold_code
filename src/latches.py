@@ -63,10 +63,6 @@ class OneBitLatch(LogicComponent):
         self.data = self.relay_data.input
         # NOTE use val not _val so that internal pins are correctly set
         # setting levels before connections to avoid noise when logging
-        self.and_a.input_a.val = 1
-        self.nor_a.input_b.val = 1
-        self.nor_a.output.val = 0
-        self.nor_b.output.val = 1
         self.relay_clock.output.connections.append(self.and_a.input_b)
         self.relay_clock.output.connections.append(self.and_b.input_a)
         self.relay_data.output.connections.append(self.inverter.input)
@@ -78,6 +74,10 @@ class OneBitLatch(LogicComponent):
         self.nor_b.output.connections.append(self.nor_a.input_b)
         self.q = self.nor_a.output
         self.q_bar = self.nor_b.output
+        self.and_a.input_a.setExternalPin(1)
+        self.nor_a.input_b.setExternalPin(1)
+        self.nor_a.output.val = 0
+        self.nor_b.output.val = 1
 
 
 class OneBitEdgeTriggeredLatch(LogicComponent):
@@ -115,16 +115,6 @@ class OneBitEdgeTriggeredLatch(LogicComponent):
         self.data = self.nor_d.input_c
         self.q = self.nor_e.output
         self.q_bar = self.nor_f.output
-        self.inverter.output.val = 1
-        self.clock_relay.input.val = 1
-        self.clock_relay.output.val = 1
-        self.nor_d.output.val = 1
-        self.nor_f.output.val = 1
-        self.nor_a.input_b.val = 1
-        self.nor_b.input_c.val = 1
-        self.nor_c.input_b.val = 1
-        self.nor_c.input_c.val = 1
-        self.nor_e.input_c.val = 1
         self.inverter.output.connections.append(self.clock_relay.input)
         self.clear_relay.output.connections.append(self.nor_a.input_a)
         self.clear_relay.output.connections.append(self.nor_e.input_a)
@@ -143,6 +133,16 @@ class OneBitEdgeTriggeredLatch(LogicComponent):
         self.nor_d.output.connections.append(self.nor_c.input_c)
         self.nor_e.output.connections.append(self.nor_f.input_a)
         self.nor_f.output.connections.append(self.nor_e.input_c)
+        self.nor_a.input_b.setExternalPin(1)
+        self.nor_b.input_c.setExternalPin(1)
+        self.nor_c.input_b.setExternalPin(1)
+        self.nor_c.input_c.setExternalPin(1)
+        self.nor_e.input_c.setExternalPin(1)
+        self.inverter.output.val = 1
+        self.clock_relay.input.val = 1
+        self.clock_relay.output.val = 1
+        self.nor_d.output.val = 1
+        self.nor_f.output.val = 1
 
 
 class EightBitLatch(LogicComponent, EightBitInputOutputMixin):

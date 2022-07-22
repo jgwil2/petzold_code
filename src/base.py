@@ -62,11 +62,15 @@ class InputPin(Pin):
         # this means that circuits cannot self-update from their initial
         # state - correct output levels must be set in init method
         if self._val != val:
-            # print(
-            #     "input changed from", self._val, "to", val, self.component.name
-            # )
             self._val = val
-            self.component.evaluate()
+
+    def setExternalPin(self, val: int):
+        """
+        This is a convenience method for forcing evaluation to begin on
+        an InputPin that is not connected on the left to any OutputPin.
+        """
+        self.val = val
+        self.component.evaluate()
 
 
 class OutputPin(Pin):
@@ -88,9 +92,9 @@ class OutputPin(Pin):
     @val.setter
     def val(self, val: int):
         if self._val != val:
-            # print(
-            #     "output changed from", self._val, "to", val, self.component.name
-            # )
             self._val = val
             for connection in self.connections:
                 connection.val = val
+            # TODO explain clearly why the second for loop is necessary
+            for connection in self.connections:
+                connection.component.evaluate()

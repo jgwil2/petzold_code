@@ -14,19 +14,19 @@ class TestSelectorsDecoders(unittest.TestCase):
             0,
             "select input is 0 so output value of A",
         )
-        one_bit_selector.input_a.val = 1
+        one_bit_selector.input_a.setExternalPin(1)
         self.assertEqual(
             one_bit_selector.output.val,
             1,
             "select input is 0 so output value of A",
         )
-        one_bit_selector.select.val = 1
+        one_bit_selector.select.setExternalPin(1)
         self.assertEqual(
             one_bit_selector.output.val,
             0,
             "select input is 1 so output value of B",
         )
-        one_bit_selector.input_b.val = 1
+        one_bit_selector.input_b.setExternalPin(1)
         self.assertEqual(
             one_bit_selector.output.val,
             1,
@@ -37,13 +37,13 @@ class TestSelectorsDecoders(unittest.TestCase):
         eight_bit_selector = EightBitSelector("test_eight_bit_selector")
         eight_bit_selector.set_data_as_int(32, "a")
         eight_bit_selector.set_data_as_int(101, "b")
-        eight_bit_selector.select.val = 0
+        eight_bit_selector.select.setExternalPin(0)
         self.assertEqual(
             eight_bit_selector.get_data_as_int("output"),
             32,
             "select input is 0 so output is value of A input",
         )
-        eight_bit_selector.select.val = 1
+        eight_bit_selector.select.setExternalPin(1)
         self.assertEqual(
             eight_bit_selector.get_data_as_int("output"),
             101,
