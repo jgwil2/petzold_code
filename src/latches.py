@@ -186,3 +186,66 @@ class EightBitLatch(LogicComponent, EightBitInputOutputMixin):
         self.relay.output.connections.append(self.latch_5.clock)
         self.relay.output.connections.append(self.latch_6.clock)
         self.relay.output.connections.append(self.latch_7.clock)
+
+
+class EightBitEdgeTriggeredLatch(LogicComponent, EightBitInputOutputMixin):
+    """
+    An edge-triggered latch capable of storing a single 8-bit value
+    """
+
+    def __init__(self, name: str):
+        super().__init__(name)
+        self.latch_0 = OneBitEdgeTriggeredLatch(f"{name}#latch_0")
+        self.latch_1 = OneBitEdgeTriggeredLatch(f"{name}#latch_1")
+        self.latch_2 = OneBitEdgeTriggeredLatch(f"{name}#latch_2")
+        self.latch_3 = OneBitEdgeTriggeredLatch(f"{name}#latch_3")
+        self.latch_4 = OneBitEdgeTriggeredLatch(f"{name}#latch_4")
+        self.latch_5 = OneBitEdgeTriggeredLatch(f"{name}#latch_5")
+        self.latch_6 = OneBitEdgeTriggeredLatch(f"{name}#latch_6")
+        self.latch_7 = OneBitEdgeTriggeredLatch(f"{name}#latch_7")
+        self.d_0 = self.latch_0.data
+        self.d_1 = self.latch_1.data
+        self.d_2 = self.latch_2.data
+        self.d_3 = self.latch_3.data
+        self.d_4 = self.latch_4.data
+        self.d_5 = self.latch_5.data
+        self.d_6 = self.latch_6.data
+        self.d_7 = self.latch_7.data
+        self.q_0 = self.latch_0.q
+        self.q_1 = self.latch_1.q
+        self.q_2 = self.latch_2.q
+        self.q_3 = self.latch_3.q
+        self.q_4 = self.latch_4.q
+        self.q_5 = self.latch_5.q
+        self.q_6 = self.latch_6.q
+        self.q_7 = self.latch_7.q
+        self.clock_relay = Buffer(f"{name}#clock_relay")
+        self.clock = self.clock_relay.input
+        self.clock_relay.output.connections.append(self.latch_0.clock)
+        self.clock_relay.output.connections.append(self.latch_1.clock)
+        self.clock_relay.output.connections.append(self.latch_2.clock)
+        self.clock_relay.output.connections.append(self.latch_3.clock)
+        self.clock_relay.output.connections.append(self.latch_4.clock)
+        self.clock_relay.output.connections.append(self.latch_5.clock)
+        self.clock_relay.output.connections.append(self.latch_6.clock)
+        self.clock_relay.output.connections.append(self.latch_7.clock)
+        self.preset_relay = Buffer(f"{name}#preset_relay")
+        self.preset = self.preset_relay.input
+        self.preset_relay.output.connections.append(self.latch_0.preset)
+        self.preset_relay.output.connections.append(self.latch_1.preset)
+        self.preset_relay.output.connections.append(self.latch_2.preset)
+        self.preset_relay.output.connections.append(self.latch_3.preset)
+        self.preset_relay.output.connections.append(self.latch_4.preset)
+        self.preset_relay.output.connections.append(self.latch_5.preset)
+        self.preset_relay.output.connections.append(self.latch_6.preset)
+        self.preset_relay.output.connections.append(self.latch_7.preset)
+        self.clear_relay = Buffer(f"{name}#clear_relay")
+        self.clear = self.clear_relay.input
+        self.clear_relay.output.connections.append(self.latch_0.clear)
+        self.clear_relay.output.connections.append(self.latch_1.clear)
+        self.clear_relay.output.connections.append(self.latch_2.clear)
+        self.clear_relay.output.connections.append(self.latch_3.clear)
+        self.clear_relay.output.connections.append(self.latch_4.clear)
+        self.clear_relay.output.connections.append(self.latch_5.clear)
+        self.clear_relay.output.connections.append(self.latch_6.clear)
+        self.clear_relay.output.connections.append(self.latch_7.clear)

@@ -5,7 +5,7 @@
 ### Ch. 14
 
 - [x] 2-line-to-1-line selector
-- [ ] edge triggered flip-flop with preset and clear
+- [x] edge triggered flip-flop with preset and clear
 - [ ] 16-bit ripple counter
 - [ ] clock (not assembled from primitives)
 

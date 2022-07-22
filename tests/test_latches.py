@@ -1,6 +1,7 @@
 import unittest
 
 from src.latches import (
+    EightBitEdgeTriggeredLatch,
     EightBitLatch,
     OneBitEdgeTriggeredLatch,
     OneBitLatch,
@@ -170,14 +171,75 @@ class TestLatches(unittest.TestCase):
         # clear inputs
         for i in range(8):
             getattr(test_latch, f"d_{i}").setExternalPin(0)
-        self.assertEqual(test_latch.q_0.val, 1)
-        self.assertEqual(test_latch.q_1.val, 1)
-        self.assertEqual(test_latch.q_2.val, 0)
-        self.assertEqual(test_latch.q_3.val, 0)
-        self.assertEqual(test_latch.q_4.val, 1)
-        self.assertEqual(test_latch.q_5.val, 0)
-        self.assertEqual(test_latch.q_6.val, 0)
-        self.assertEqual(test_latch.q_7.val, 1)
+        self.assertEqual(
+            test_latch.q_0.val, 1, "When clock = 0, data does not affect output"
+        )
+        self.assertEqual(
+            test_latch.q_1.val, 1, "When clock = 0, data does not affect output"
+        )
+        self.assertEqual(
+            test_latch.q_2.val, 0, "When clock = 0, data does not affect output"
+        )
+        self.assertEqual(
+            test_latch.q_3.val, 0, "When clock = 0, data does not affect output"
+        )
+        self.assertEqual(
+            test_latch.q_4.val, 1, "When clock = 0, data does not affect output"
+        )
+        self.assertEqual(
+            test_latch.q_5.val, 0, "When clock = 0, data does not affect output"
+        )
+        self.assertEqual(
+            test_latch.q_6.val, 0, "When clock = 0, data does not affect output"
+        )
+        self.assertEqual(
+            test_latch.q_7.val, 1, "When clock = 0, data does not affect output"
+        )
+        test_latch.clock.setExternalPin(1)
+        for i in range(8):
+            self.assertEqual(
+                getattr(test_latch, f"q_{i}").val, 0, f"Store 0 in q_{i}"
+            )
+
+    def test_eight_bit_edge_triggered_latch(self):
+        test_latch = EightBitEdgeTriggeredLatch("test_latch")
+        for i in range(8):
+            self.assertEqual(
+                getattr(test_latch, f"q_{i}").val, 0, f"Initializes q_{i} to 0"
+            )
+        test_latch.d_0.setExternalPin(1)
+        test_latch.d_1.setExternalPin(1)
+        test_latch.d_4.setExternalPin(1)
+        test_latch.d_7.setExternalPin(1)
+        test_latch.clock.setExternalPin(1)
+        # clear inputs
+        for i in range(8):
+            getattr(test_latch, f"d_{i}").setExternalPin(0)
+        self.assertEqual(
+            test_latch.q_0.val, 1, "When clock = 1, data does not affect output"
+        )
+        self.assertEqual(
+            test_latch.q_1.val, 1, "When clock = 1, data does not affect output"
+        )
+        self.assertEqual(
+            test_latch.q_2.val, 0, "When clock = 1, data does not affect output"
+        )
+        self.assertEqual(
+            test_latch.q_3.val, 0, "When clock = 1, data does not affect output"
+        )
+        self.assertEqual(
+            test_latch.q_4.val, 1, "When clock = 1, data does not affect output"
+        )
+        self.assertEqual(
+            test_latch.q_5.val, 0, "When clock = 1, data does not affect output"
+        )
+        self.assertEqual(
+            test_latch.q_6.val, 0, "When clock = 1, data does not affect output"
+        )
+        self.assertEqual(
+            test_latch.q_7.val, 1, "When clock = 1, data does not affect output"
+        )
+        test_latch.clock.setExternalPin(0)
         test_latch.clock.setExternalPin(1)
         for i in range(8):
             self.assertEqual(
