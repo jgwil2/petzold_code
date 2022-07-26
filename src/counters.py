@@ -41,31 +41,39 @@ class EightBitRippleCounter(LogicComponent, EightBitInputOutputMixin):
 
         self.q_0 = self.latch_0.q
         self.latch_0.q_bar.connections.append(self.latch_0.data)
+        self.latch_0.data.setExternalPin(1)
         self.latch_0.q_bar.connections.append(self.latch_1.clock)
 
         self.q_1 = self.latch_1.q
         self.latch_1.q_bar.connections.append(self.latch_1.data)
+        self.latch_1.data.setExternalPin(1)
         self.latch_1.q_bar.connections.append(self.latch_2.clock)
 
         self.q_2 = self.latch_2.q
         self.latch_2.q_bar.connections.append(self.latch_2.data)
+        self.latch_2.data.setExternalPin(1)
         self.latch_2.q_bar.connections.append(self.latch_3.clock)
 
         self.q_3 = self.latch_3.q
         self.latch_3.q_bar.connections.append(self.latch_3.data)
+        self.latch_3.data.setExternalPin(1)
         self.latch_3.q_bar.connections.append(self.latch_4.clock)
 
         self.q_4 = self.latch_4.q
         self.latch_4.q_bar.connections.append(self.latch_4.data)
+        self.latch_4.data.setExternalPin(1)
         self.latch_4.q_bar.connections.append(self.latch_5.clock)
 
         self.q_5 = self.latch_5.q
         self.latch_5.q_bar.connections.append(self.latch_5.data)
+        self.latch_5.data.setExternalPin(1)
         self.latch_5.q_bar.connections.append(self.latch_6.clock)
 
         self.q_6 = self.latch_6.q
         self.latch_6.q_bar.connections.append(self.latch_6.data)
+        self.latch_6.data.setExternalPin(1)
         self.latch_6.q_bar.connections.append(self.latch_7.clock)
 
         self.q_7 = self.latch_7.q
         self.latch_7.q_bar.connections.append(self.latch_7.data)
+        self.latch_7.data.setExternalPin(1)
