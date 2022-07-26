@@ -1,10 +1,23 @@
-from base import LogicComponent
-from latches import OneBitEdgeTriggeredLatch
-from mixins import EightBitInputOutputMixin
+from src.base import LogicComponent
+from src.latches import OneBitEdgeTriggeredLatch
+from src.mixins import EightBitInputOutputMixin
 
 
 class FrequencyDivider(LogicComponent):
-    pass
+    """
+    A frequency divider whose output oscillates between 0 and 1 at half
+    the rate of its clock input
+
+    Ch. 14, pp. 173-175
+    """
+
+    def __init__(self, name: str):
+        super().__init__(name)
+        self.latch = OneBitEdgeTriggeredLatch(f"{name}#latch")
+        self.clock = self.latch.clock
+        self.latch.q_bar.connections.append(self.latch.data)
+        self.latch.data.setExternalPin(1)
+        self.q = self.latch.q
 
 
 class EightBitRippleCounter(LogicComponent, EightBitInputOutputMixin):
@@ -16,14 +29,14 @@ class EightBitRippleCounter(LogicComponent, EightBitInputOutputMixin):
 
     def __init__(self, name: str) -> None:
         super().__init__(name)
-        self.latch_0 = OneBitEdgeTriggeredLatch("latch_0")
-        self.latch_1 = OneBitEdgeTriggeredLatch("latch_1")
-        self.latch_2 = OneBitEdgeTriggeredLatch("latch_2")
-        self.latch_3 = OneBitEdgeTriggeredLatch("latch_3")
-        self.latch_4 = OneBitEdgeTriggeredLatch("latch_4")
-        self.latch_5 = OneBitEdgeTriggeredLatch("latch_5")
-        self.latch_6 = OneBitEdgeTriggeredLatch("latch_6")
-        self.latch_7 = OneBitEdgeTriggeredLatch("latch_7")
+        self.latch_0 = OneBitEdgeTriggeredLatch(f"{name}#latch_0")
+        self.latch_1 = OneBitEdgeTriggeredLatch(f"{name}#latch_1")
+        self.latch_2 = OneBitEdgeTriggeredLatch(f"{name}#latch_2")
+        self.latch_3 = OneBitEdgeTriggeredLatch(f"{name}#latch_3")
+        self.latch_4 = OneBitEdgeTriggeredLatch(f"{name}#latch_4")
+        self.latch_5 = OneBitEdgeTriggeredLatch(f"{name}#latch_5")
+        self.latch_6 = OneBitEdgeTriggeredLatch(f"{name}#latch_6")
+        self.latch_7 = OneBitEdgeTriggeredLatch(f"{name}#latch_7")
         self.clock = self.latch_0.clock
 
         self.q_0 = self.latch_0.q
