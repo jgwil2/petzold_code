@@ -1,6 +1,6 @@
 from src.base import LogicComponent
 from src.gates import And, Nor, Not, Buffer, Or
-from src.mixins import EightBitInputOutputMixin
+from src.mixins import InputOutputMixin
 
 
 class ThreeInputNor(LogicComponent):
@@ -145,7 +145,7 @@ class OneBitEdgeTriggeredLatch(LogicComponent):
         self.nor_f.output.val = 1
 
 
-class EightBitLatch(LogicComponent, EightBitInputOutputMixin):
+class EightBitLatch(LogicComponent, InputOutputMixin):
     """
     A latch capable of storing a single 8-bit value
     """
@@ -188,7 +188,7 @@ class EightBitLatch(LogicComponent, EightBitInputOutputMixin):
         self.relay.output.connections.append(self.latch_7.clock)
 
 
-class EightBitEdgeTriggeredLatch(LogicComponent, EightBitInputOutputMixin):
+class EightBitEdgeTriggeredLatch(LogicComponent, InputOutputMixin):
     """
     An edge-triggered latch capable of storing a single 8-bit value
     """

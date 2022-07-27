@@ -1,10 +1,14 @@
 from random import randrange
 import unittest
 
-from src.counters import EightBitRippleCounter, FrequencyDivider
+from src.counters import (
+    EightBitRippleCounter,
+    FrequencyDivider,
+    SixteenBitRippleCounter,
+)
 
 
-class TestAdders(unittest.TestCase):
+class TestCounters(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -51,6 +55,29 @@ class TestAdders(unittest.TestCase):
             test_counter.clock.setExternalPin(0)
         self.assertEqual(
             test_counter.get_data_as_int("q"),
+            1 + test_cycles,
+            "After a random number of cycles, output value equals number of cycles elapsed",
+        )
+        # TODO add test for rollover?
+
+    def test_sixteen_bit_ripple_counter(self):
+        test_counter = SixteenBitRippleCounter("test")
+        self.assertEqual(
+            test_counter.get_data_as_int("q"), 0, "Output starts at 0"
+        )
+        test_counter.clock.setExternalPin(1)
+        test_counter.clock.setExternalPin(0)
+        self.assertEqual(
+            test_counter.get_data_as_int("q"),
+            1,
+            "Output value is 1 after one clock cycle",
+        )
+        test_cycles = randrange(255, 2000)
+        for i in range(test_cycles):
+            test_counter.clock.setExternalPin(1)
+            test_counter.clock.setExternalPin(0)
+        self.assertEqual(
+            test_counter.get_data_as_int("q", 16),
             1 + test_cycles,
             "After a random number of cycles, output value equals number of cycles elapsed",
         )

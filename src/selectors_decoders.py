@@ -1,6 +1,6 @@
 from src.base import LogicComponent
 from src.gates import And, Buffer, Or, Not
-from src.mixins import EightBitInputOutputMixin
+from src.mixins import InputOutputMixin
 
 
 class OneBitSelector(LogicComponent):
@@ -39,7 +39,7 @@ class OneBitSelector(LogicComponent):
         self.output = self.or_gate.output
 
 
-class EightBitSelector(LogicComponent, EightBitInputOutputMixin):
+class EightBitSelector(LogicComponent, InputOutputMixin):
     """
     A selector that takes two 8 bit numbers as input and displays one of
     them as output, depending on the select input
