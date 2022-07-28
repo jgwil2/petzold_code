@@ -58,7 +58,14 @@ class TestCounters(unittest.TestCase):
             1 + test_cycles,
             "After a random number of cycles, output value equals number of cycles elapsed",
         )
-        # TODO add test for rollover?
+        for i in range(255 - test_cycles):
+            test_counter.clock.setExternalPin(1)
+            test_counter.clock.setExternalPin(0)
+        self.assertEqual(
+            test_counter.get_data_as_int("q"),
+            0,
+            "After 256 cycles, output value equals 0 again (counter has rolled over)",
+        )
 
     def test_sixteen_bit_ripple_counter(self):
         test_counter = SixteenBitRippleCounter("test")
