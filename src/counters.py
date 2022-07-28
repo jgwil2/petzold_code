@@ -18,6 +18,7 @@ class FrequencyDivider(LogicComponent):
         self.latch.q_bar.connections.append(self.latch.data)
         self.latch.data.setExternalPin(1)
         self.q = self.latch.q
+        self.q_bar = self.latch.q_bar
 
 
 class EightBitRippleCounter(LogicComponent, InputOutputMixin):
@@ -29,55 +30,38 @@ class EightBitRippleCounter(LogicComponent, InputOutputMixin):
 
     def __init__(self, name: str) -> None:
         super().__init__(name)
-        # TODO rewrite using FrequencyDivider
-        self.latch_0 = OneBitEdgeTriggeredLatch(f"{name}#latch_0")
-        self.latch_1 = OneBitEdgeTriggeredLatch(f"{name}#latch_1")
-        self.latch_2 = OneBitEdgeTriggeredLatch(f"{name}#latch_2")
-        self.latch_3 = OneBitEdgeTriggeredLatch(f"{name}#latch_3")
-        self.latch_4 = OneBitEdgeTriggeredLatch(f"{name}#latch_4")
-        self.latch_5 = OneBitEdgeTriggeredLatch(f"{name}#latch_5")
-        self.latch_6 = OneBitEdgeTriggeredLatch(f"{name}#latch_6")
-        self.latch_7 = OneBitEdgeTriggeredLatch(f"{name}#latch_7")
-        self.clock = self.latch_0.clock
+        self.divider_0 = FrequencyDivider(f"{name}#divider_0")
+        self.divider_1 = FrequencyDivider(f"{name}#divider_1")
+        self.divider_2 = FrequencyDivider(f"{name}#divider_2")
+        self.divider_3 = FrequencyDivider(f"{name}#divider_3")
+        self.divider_4 = FrequencyDivider(f"{name}#divider_4")
+        self.divider_5 = FrequencyDivider(f"{name}#divider_5")
+        self.divider_6 = FrequencyDivider(f"{name}#divider_6")
+        self.divider_7 = FrequencyDivider(f"{name}#divider_7")
+        self.clock = self.divider_0.clock
 
-        self.q_0 = self.latch_0.q
-        self.latch_0.q_bar.connections.append(self.latch_0.data)
-        self.latch_0.data.setExternalPin(1)
-        self.latch_0.q_bar.connections.append(self.latch_1.clock)
+        self.q_0 = self.divider_0.q
+        self.divider_0.q_bar.connections.append(self.divider_1.clock)
 
-        self.q_1 = self.latch_1.q
-        self.latch_1.q_bar.connections.append(self.latch_1.data)
-        self.latch_1.data.setExternalPin(1)
-        self.latch_1.q_bar.connections.append(self.latch_2.clock)
+        self.q_1 = self.divider_1.q
+        self.divider_1.q_bar.connections.append(self.divider_2.clock)
 
-        self.q_2 = self.latch_2.q
-        self.latch_2.q_bar.connections.append(self.latch_2.data)
-        self.latch_2.data.setExternalPin(1)
-        self.latch_2.q_bar.connections.append(self.latch_3.clock)
+        self.q_2 = self.divider_2.q
+        self.divider_2.q_bar.connections.append(self.divider_3.clock)
 
-        self.q_3 = self.latch_3.q
-        self.latch_3.q_bar.connections.append(self.latch_3.data)
-        self.latch_3.data.setExternalPin(1)
-        self.latch_3.q_bar.connections.append(self.latch_4.clock)
+        self.q_3 = self.divider_3.q
+        self.divider_3.q_bar.connections.append(self.divider_4.clock)
 
-        self.q_4 = self.latch_4.q
-        self.latch_4.q_bar.connections.append(self.latch_4.data)
-        self.latch_4.data.setExternalPin(1)
-        self.latch_4.q_bar.connections.append(self.latch_5.clock)
+        self.q_4 = self.divider_4.q
+        self.divider_4.q_bar.connections.append(self.divider_5.clock)
 
-        self.q_5 = self.latch_5.q
-        self.latch_5.q_bar.connections.append(self.latch_5.data)
-        self.latch_5.data.setExternalPin(1)
-        self.latch_5.q_bar.connections.append(self.latch_6.clock)
+        self.q_5 = self.divider_5.q
+        self.divider_5.q_bar.connections.append(self.divider_6.clock)
 
-        self.q_6 = self.latch_6.q
-        self.latch_6.q_bar.connections.append(self.latch_6.data)
-        self.latch_6.data.setExternalPin(1)
-        self.latch_6.q_bar.connections.append(self.latch_7.clock)
+        self.q_6 = self.divider_6.q
+        self.divider_6.q_bar.connections.append(self.divider_7.clock)
 
-        self.q_7 = self.latch_7.q
-        self.latch_7.q_bar.connections.append(self.latch_7.data)
-        self.latch_7.data.setExternalPin(1)
+        self.q_7 = self.divider_7.q
 
 
 class SixteenBitRippleCounter(LogicComponent, InputOutputMixin):
@@ -92,7 +76,7 @@ class SixteenBitRippleCounter(LogicComponent, InputOutputMixin):
         self.counter_1 = EightBitRippleCounter(f"{name}#counter_1")
         self.counter_2 = EightBitRippleCounter(f"{name}#counter_2")
         self.clock = self.counter_1.clock
-        self.counter_1.latch_7.q_bar.connections.append(self.counter_2.clock)
+        self.counter_1.divider_7.q_bar.connections.append(self.counter_2.clock)
         self.q_0 = self.counter_1.q_0
         self.q_1 = self.counter_1.q_1
         self.q_2 = self.counter_1.q_2

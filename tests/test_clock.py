@@ -9,7 +9,7 @@ class TestClock(unittest.TestCase):
     def setUp(self):
         pass
 
-    def test_half_adder(self):
+    def test_clock(self):
         clock = Clock("test_clock", 100000)
         ripple_counter = EightBitRippleCounter("test_counter")
         clock.output.connections.append(ripple_counter.clock)
