@@ -7,11 +7,11 @@
 - [x] 2-line-to-1-line selector
 - [x] edge triggered flip-flop with preset and clear
 - [x] 16-bit ripple counter
-- [ ] clock (not assembled from primitives)
+- [x] clock (not assembled from primitives)
 
 ### Ch. 16
 
-- [x] 64Kx8 RAM array (not assembled from primitives)
+- [ ] 64Kx8 RAM array (not assembled from primitives)
 
 ### Ch. 17
 
