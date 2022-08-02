@@ -26,8 +26,8 @@ class TestRam(unittest.TestCase):
         self.assertEqual(
             ram.data_out, [0] * 8, "No data has been written to RAM"
         )
-        ram.write = 1
-        ram.write = 0
+        ram.write.val = 1
+        ram.write.val = 0
         self.assertEqual(
             ram.data_out, [1] * 8, "Data has been written to RAM at address 0"
         )
@@ -36,8 +36,8 @@ class TestRam(unittest.TestCase):
             ram.data_out, [0] * 8, "RAM still has value 0 at address 1"
         )
         ram.data_in = ram._int_to_binary_list(219)
-        ram.write = 1
-        ram.write = 0
+        ram.write.val = 1
+        ram.write.val = 0
         self.assertEqual(
             ram.memory[1], 219, "Value 219 has been written to RAM at address 1"
         )
@@ -50,8 +50,8 @@ class TestRam(unittest.TestCase):
             ram.data_out, [0] * 8, "RAM still has value 0 at address 65535"
         )
         ram.data_in = ram._int_to_binary_list(100)
-        ram.write = 1
-        ram.write = 0
+        ram.write.val = 1
+        ram.write.val = 0
         self.assertEqual(
             ram.memory[65535],
             100,
